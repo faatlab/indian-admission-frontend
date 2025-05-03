@@ -1,5 +1,6 @@
 
 import './App.css'
+import FooterComponent from './components/FooterComponent/FooterComponent'
 import Home from './Pages/Home/Home'
 
 function App() {
@@ -8,6 +9,7 @@ function App() {
   return (
     <>
       <Home/>
+      <FooterComponent/>
     </>
   )
 }

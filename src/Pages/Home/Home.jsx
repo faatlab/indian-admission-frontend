@@ -1,23 +1,28 @@
 import { Dropdown } from 'primereact/dropdown';
+import { useState } from 'react';
 import logo from '../../assets/main-logo.svg';
 import hero from '../../assets/hero.jpeg';
 import university1 from '../../assets/university1.svg';
 import university2 from '../../assets/university2.svg';
 import university3 from '../../assets/university3.svg';
 import university4 from '../../assets/university4.svg';
-import arrow from '../../assets/arrow.svg';
-import location from '../../assets/location.svg';
-import { useState } from 'react';
 
+import location from '../../assets/location.svg';
+
+import course1 from '../../assets/course1.svg';
+import course2 from '../../assets/course2.svg';
+import course3 from '../../assets/course3.svg';
+import save from '../../assets/save.svg';
 // import calender from '../../assets/calender.svg';
 // import cap from '../../assets/cap.svg';
-// import downArrow from '../../assets/downarow.svg';
-// import mars from '../../assets/mars.svg';
+import down from '../../assets/down arow.svg';
+import mars from '../../assets/mars.svg';
 // import facebook from '../../assets/facebook.svg';
 // import twitter from '../../assets/twitter.svg';
 // import linkedin from '../../assets/linkedin.svg';
-// import testimony1 from '../../assets/testimony1.svg';
-// import testimony2 from '../../assets/testimony2.svg';
+import testimony1 from '../../assets/testimony1.svg';
+import testimony2 from '../../assets/testimony2.svg';
+import testimony3 from '../../assets/testimony3.svg';
 
 function Home() {
   const [selectedCity, setSelectedCity] = useState(null);
@@ -27,6 +32,42 @@ function Home() {
     { name: 'London', code: 'LDN' },
     { name: 'Istanbul', code: 'IST' },
     { name: 'Paris', code: 'PRS' },
+  ];
+  const totalStars = 5;
+  const renderStars = (rating) =>
+    Array.from({ length: totalStars }).map((_, i) => (
+      <span
+        key={i}
+        className={`text-sm ${
+          i < rating ? 'text-yellow-400' : 'text-gray-300'
+        }`}
+      >
+        ★
+      </span>
+    ));
+
+  const testimonials = [
+    {
+      quote:
+        '“Teachings of the great explore of truth, the master-builder of human happiness. no one rejects,dislikes, or avoids pleasure itself, pleasure itself”',
+      name: 'Finlay Kirk',
+      role: 'Web Developer',
+      avatar: testimony1,
+    },
+    {
+      quote:
+        '“Complete account of the system and expound the actual Contrary system and expound the actual to popular belief, Lorem Ipsum is not simply random text. It has roots”',
+      name: 'Dannette P. Cervantes',
+      role: 'Web Design',
+      avatar: testimony2,
+    },
+    {
+      quote:
+        '“There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour”',
+      name: 'Clara R. Altman',
+      role: 'UI/UX Design',
+      avatar: testimony3,
+    },
   ];
 
   return (
@@ -389,17 +430,216 @@ function Home() {
             </div>
           </div>
         </div>
-      </div>
-      <div>
-        {/* trending courses */}
-        <div className="flex justify-between items-center mx-30 my-20">
-          <h2 className="text-3xl font-black text-[#535353]">
-            Trending Courses
-          </h2>{' '}
-          <button className="text-white h-12 bg-[#FF671F]  font-medium rounded-[50px] text-sm px-4">
-            See more
-          </button>
+        <div>
+          {/* trending courses */}
+          <div className="flex justify-between items-center mx-30 my-20">
+            <h2 className="text-3xl font-black text-[#535353]">
+              Trending Courses
+            </h2>{' '}
+            <button className="text-white h-12 bg-[#FF671F]  font-medium rounded-[50px] text-sm px-4">
+              See more
+            </button>
+          </div>
         </div>
+        {/* card  */}
+        <div className=" flex flex-row items-center gap-6 justify-center flex-wrap mt-3 mb-20">
+          {/* Card 1 */}
+          <div className="flex w-full max-w-md rounded-xl overflow-hidden shadow-md bg-white gap-2">
+            <div className="flex flex-col justify-between p-4 flex-1">
+              <h2 className="text-lg font-semibold text-gray-800 mb-3">
+                Bachelor of Computer Applications
+              </h2>
+              <div className="flex items-center space-x-1">
+                {renderStars(3)}
+                <span className="ml-auto text-gray-600 text-lg cursor-pointer">
+                  <img src={save} alt="" />
+                </span>
+              </div>
+            </div>
+            <img src={course1} alt="BCA" className="w-40 object-cover" />
+          </div>
+
+          {/* Card 2 */}
+          <div className="flex w-full max-w-md rounded-xl overflow-hidden shadow-md bg-white">
+            <div className="flex flex-col justify-between p-4 flex-1">
+              <h2 className="text-lg font-semibold text-gray-800 mb-3">
+                Bachelor of Information Technology
+              </h2>
+              <div className="flex items-center space-x-1">
+                {renderStars(4)}
+                <span className="ml-auto text-gray-600 text-lg cursor-pointer">
+                  <img src={save} alt="" />
+                </span>
+              </div>
+            </div>
+            <img src={course2} alt="BIT" className="w-40 object-cover" />
+          </div>
+
+          {/* Card 3 */}
+          <div className="flex w-full max-w-md rounded-xl overflow-hidden shadow-md bg-white">
+            <div className="flex flex-col justify-between p-4 flex-1">
+              <h2 className="text-lg font-semibold text-gray-800 mb-3">
+                Bachelor of Data Science
+              </h2>
+              <div className="flex items-center space-x-1">
+                {renderStars(5)}
+                <span className="ml-auto text-gray-600 text-lg cursor-pointer">
+                  <img src={save} alt="" />
+                </span>
+              </div>
+            </div>
+            <img src={course3} alt="BDS" className="w-40 object-cover" />
+          </div>
+          <div className="flex w-full max-w-md rounded-xl overflow-hidden shadow-md bg-white">
+            <div className="flex flex-col justify-between p-4 flex-1">
+              <h2 className="text-lg font-semibold text-gray-800 mb-3">
+                Bachelor of Data Science
+              </h2>
+              <div className="flex items-center space-x-1">
+                {renderStars(5)}
+                <span className="ml-auto text-gray-600 text-lg cursor-pointer">
+                  <img src={save} alt="" />
+                </span>
+              </div>
+            </div>
+            <img src={course3} alt="BDS" className="w-40 object-cover" />
+          </div>
+          <div className="flex w-full max-w-md rounded-xl overflow-hidden shadow-md bg-white">
+            <div className="flex flex-col justify-between p-4 flex-1">
+              <h2 className="text-lg font-semibold text-gray-800 mb-3">
+                Bachelor of Data Science
+              </h2>
+              <div className="flex items-center space-x-1">
+                {renderStars(5)}
+                <span className="ml-auto text-gray-600 text-lg cursor-pointer">
+                  <img src={save} alt="" />
+                </span>
+              </div>
+            </div>
+            <img src={course3} alt="BDS" className="w-40 object-cover" />
+          </div>
+          <div className="flex w-full max-w-md rounded-xl overflow-hidden shadow-md bg-white">
+            <div className="flex flex-col justify-between p-4 flex-1">
+              <h2 className="text-lg font-semibold text-gray-800 mb-3">
+                Bachelor of Data Science
+              </h2>
+              <div className="flex items-center space-x-1">
+                {renderStars(5)}
+                <span className="ml-auto text-gray-600 text-lg cursor-pointer">
+                  <img src={save} alt="" />
+                </span>
+              </div>
+            </div>
+            <img src={course3} alt="BDS" className="w-40 object-cover" />
+          </div>
+          <div className="flex w-full max-w-md rounded-xl overflow-hidden shadow-md bg-white gap-2">
+            <div className="flex flex-col justify-between p-4 flex-1">
+              <h2 className="text-lg font-semibold text-gray-800 mb-3">
+                Bachelor of Computer Applications
+              </h2>
+              <div className="flex items-center space-x-1">
+                {renderStars(3)}
+                <span className="ml-auto text-gray-600 text-lg cursor-pointer">
+                  <img src={save} alt="" />
+                </span>
+              </div>
+            </div>
+            <img src={course1} alt="BCA" className="w-40 object-cover" />
+          </div>
+
+          {/* Card 2 */}
+          <div className="flex w-full max-w-md rounded-xl overflow-hidden shadow-md bg-white">
+            <div className="flex flex-col justify-between p-4 flex-1">
+              <h2 className="text-lg font-semibold text-gray-800 mb-3">
+                Bachelor of Information Technology
+              </h2>
+              <div className="flex items-center space-x-1">
+                {renderStars(4)}
+                <span className="ml-auto text-gray-600 text-lg cursor-pointer">
+                  <img src={save} alt="" />
+                </span>
+              </div>
+            </div>
+            <img src={course2} alt="BIT" className="w-40 object-cover" />
+          </div>
+          <div className="flex w-full max-w-md rounded-xl overflow-hidden shadow-md bg-white">
+            <div className="flex flex-col justify-between p-4 flex-1">
+              <h2 className="text-lg font-semibold text-gray-800 mb-3">
+                Bachelor of Information Technology
+              </h2>
+              <div className="flex items-center space-x-1">
+                {renderStars(4)}
+                <span className="ml-auto text-gray-600 text-lg cursor-pointer">
+                  <img src={save} alt="" />
+                </span>
+              </div>
+            </div>
+            <img src={course2} alt="BIT" className="w-40 object-cover" />
+          </div>
+        </div>
+
+        {/* testimony section */}
+        <section className="relative py-20 bg-white text-center overflow-hidden">
+          {/* Left arrow decorative element */}
+          <img
+            src={down}
+            alt="Arrow"
+            className="absolute left-5 top-1/2 transform -translate-y-1/2 w-16"
+          />
+          <div className="bg-[#FF7526]/20 z-0  h-100 w-150 blur-3xl flex justify-center position absolute  -left-50 right-0 "></div>
+          <div className="bg-[#FF7526]/20 z-0  h-100 w-150 blur-3xl flex justify-center position absolute  -right-50 "></div>
+
+
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">
+            What Student’s Say
+          </h2>
+          <p className="text-gray-500 mb-12">
+            Lorem Ipsum is simply dummy text of the printing.
+          </p>
+
+          {/* Cards container */}
+          <div className="flex flex-col md:flex-row items-center justify-center gap-6 px-4 md:px-0">
+            {testimonials.map((t, index) => (
+              <div
+                key={index}
+                className="bg-white shadow-lg rounded-md p-6 w-full md:w-80 text-left z-50"
+              >
+                <p className="text-gray-600 italic mb-4 text-[15px]">{t.quote}</p>
+                <div className="flex items-center gap-3">
+                  <img
+                    src={t.avatar}
+                    alt={t.name}
+                    className="w-10 h-10 rounded-full object-cover"
+                  />
+                  <div>
+                    <p className="font-semibold text-gray-800">{t.name}</p>
+                    <p className="text-sm text-gray-500">{t.role}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Dots */}
+          <div className="mt-8 flex justify-center gap-2">
+            <div className="w-3 h-3 bg-orange-500 rounded-full"></div>
+            <div className="w-3 h-3 bg-gray-300 rounded-full"></div>
+            <div className="w-3 h-3 bg-gray-300 rounded-full"></div>
+            <div className="w-3 h-3 bg-gray-300 rounded-full"></div>
+          </div>
+
+          {/* Planet decorative element */}
+          <img
+            src={mars}
+            alt="Planet"
+            className="absolute right-10 bottom-10 w-20 opacity-90"
+          />
+
+          {/* Tracks heading */}
+          <h3 className="mt-20 text-2xl md:text-3xl font-bold text-black">
+            Our Tracks
+          </h3>
+        </section>
       </div>
     </>
   );
