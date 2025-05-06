@@ -37,7 +37,7 @@ function SignupPage() {
                 type="text"
                 id="name"
                 placeholder="Enter your name"
-                className="w-full border border-gray-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-1 focus:ring-slate-500"
+                className="w-full border text-sm border-gray-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-1 focus:ring-slate-500"
               />
             </div>
 
@@ -50,7 +50,7 @@ function SignupPage() {
                 type="email"
                 id="email"
                 placeholder="you@example.com"
-                className="w-full border border-gray-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-1 focus:ring-slate-500"
+                className="w-full border text-sm border-gray-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-1 focus:ring-slate-500"
               />
             </div>
 
@@ -63,7 +63,7 @@ function SignupPage() {
                 type={showPassword ? 'text' : 'password'}
                 id="password"
                 placeholder="Enter your password"
-                className="w-full border border-gray-300 rounded-xl px-4 py-2 pr-10 focus:outline-none focus:ring-1 focus:ring-slate-500"
+                className="w-full border text-sm border-gray-300 rounded-xl px-4 py-2 pr-10 focus:outline-none focus:ring-1 focus:ring-slate-500"
               />
               <button
                 type="button"
@@ -90,7 +90,7 @@ function SignupPage() {
             {/* Submit */}
             <button
               type="submit"
-              className="w-full bg-black hover:bg-gray-900 text-white py-2 rounded-xl font-medium transition duration-200 cursor-pointer"
+              className="w-full bg-black hover:bg-gray-900 text-white py-2 rounded-xl text-sm transition duration-200 cursor-pointer"
             >
               Signup
             </button>
@@ -98,11 +98,11 @@ function SignupPage() {
 
           <div className="my-4 text-center text-sm text-gray-500">or</div>
 
-          <button className="w-full border rounded-xl py-2 flex items-center justify-center gap-2 cursor-pointer">
+          <button className="w-full border text-sm rounded-xl py-2 flex items-center justify-center gap-2 cursor-pointer">
             <img
               src="https://www.svgrepo.com/show/475656/google-color.svg"
               alt="Google"
-              className="w-5 h-5"
+              className="w-5"
             />
             Sign in with Google
           </button>

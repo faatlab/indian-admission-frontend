@@ -43,7 +43,7 @@ function LoginPage() {
                   type="email"
                   id="email"
                   placeholder="you@example.com"
-                  className="w-full border border-gray-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-1 focus:ring-slate-500"
+                  className="w-full border border-gray-300 text-sm rounded-xl px-4 py-2 focus:outline-none focus:ring-1 focus:ring-slate-500"
                 />
               </div>
 
@@ -59,7 +59,7 @@ function LoginPage() {
                   type={showPassword ? 'text' : 'password'}
                   id="password"
                   placeholder="Enter your password"
-                  className="w-full border border-gray-300 rounded-xl px-4 py-2 pr-10 focus:outline-none focus:ring-1 focus:ring-slate-500"
+                  className="w-full border text-sm border-gray-300 rounded-xl px-4 py-2 pr-10 focus:outline-none focus:ring-1 focus:ring-slate-500"
                 />
                 <button
                   type="button"
@@ -85,7 +85,7 @@ function LoginPage() {
               {/* Submit */}
               <button
                 type="submit"
-                className="w-full bg-black hover:bg-gray-900 text-white py-2 rounded-xl font-medium transition duration-200 cursor-pointer"
+                className="w-full bg-black hover:bg-gray-900 text-white py-2 rounded-xl text-sm transition duration-200 cursor-pointer"
               >
                 Login
               </button>
@@ -95,7 +95,7 @@ function LoginPage() {
             <div className="my-4 text-center text-sm text-gray-500">or</div>
 
             {/* Google Sign-In */}
-            <button className="w-full border rounded-xl py-2 flex items-center justify-center gap-2 cursor-pointer">
+            <button className="w-full border rounded-xl py-2 text-sm flex items-center justify-center gap-2 cursor-pointer">
               <img
                 src="https://www.svgrepo.com/show/475656/google-color.svg"
                 alt="Google"
@@ -104,10 +104,16 @@ function LoginPage() {
               Login with Google
             </button>
 
+            <div className="text-center text-sm mt-10">
+                <a href="/forgot-password" className="text-blue-500 font-medium">
+                  forgot your password?
+                </a>
+              </div>
+
             {/* Sign up link */}
             <div className="text-center text-sm mt-10">
               New User?{' '}
-              <a href="/signup" className="font-semibold underline">
+              <a href="/signup" className="font-semibold text-sm underline">
                 Sign up here
               </a>
             </div>
