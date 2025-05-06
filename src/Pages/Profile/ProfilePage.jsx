@@ -11,7 +11,7 @@ function ProfilePage() {
   });
   return (
     <div>
-      <div className="min-h-screen bg-white px-6 py-8 md:px-16">
+      <div className="min-h-screen bg-white px-6 py-8 md:px-16 w-3/4 mx-auto mt-15">
         <div className="flex justify-between items-start flex-wrap gap-y-4">
           <div>
             <h1 className="text-2xl font-semibold text-gray-800">

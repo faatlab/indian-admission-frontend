@@ -176,7 +176,7 @@ function CoursePage() {
 
         {/* Card 4 */}
         <div className="flex flex-col sm:flex-row w-full sm:max-w-md rounded-xl overflow-hidden shadow-md bg-white">
-          <div className="flex flex-col justify-betweenflex-1">
+          <div className="flex flex-col justify-between p-4 flex-1">
             <h2 className="text-base md:text-lg font-semibold text-gray-800 mb-3">
               Bachelor of Computer Applications
             </h2>
