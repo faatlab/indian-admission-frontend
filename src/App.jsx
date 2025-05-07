@@ -12,6 +12,7 @@ import ProfilePage from "./Pages/Profile/ProfilePage";
 import CollegePage from "./Pages/CollegePage/CollegePage";
 import Contactus from "./Pages/Contactus/Contactus";
 import { FrappeProvider } from "frappe-react-sdk";
+import PageNotFound from "./Pages/PageNotFound/PageNotFound";
 
 function App() {
    const api_key = import.meta.env.VITE_FRAPPE_STUDENT_KEY;
@@ -40,7 +41,7 @@ function App() {
                <Route path="/profile" element={<ProfilePage />} />
                <Route path="/college-page" element={<CollegePage />} />
                <Route path="/contact-us" element={<Contactus />} />
-               <Route path="*" element={<h1>404 Not Found</h1>} />
+               <Route path="*" element={<PageNotFound/>} />
             </Routes>
             <FooterComponent />
          </FrappeProvider>
