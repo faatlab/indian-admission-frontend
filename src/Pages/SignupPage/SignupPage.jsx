@@ -4,8 +4,11 @@ import { HiEyeOff } from "react-icons/hi";
 import { EyeIcon } from "@heroicons/react/16/solid";
 import axios from "axios";
 import { frappe_url } from "../../constants/globalConstants";
+import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 function SignupPage() {
+   const navigate = useNavigate();
    const [showPassword, setShowPassword] = useState(false);
    const [formData, setFormData] = useState({
       full_name: "",
@@ -20,22 +23,38 @@ function SignupPage() {
 
    const handleSubmit = async (e) => {
       e.preventDefault();
-      console.log(formData);
-      
-      try {
-         const response  = await axios.post(frappe_url + "/api/method/indianadmission.api.student.signup_student",formData)
-         console.log(response.data);
-         // await createDoc("Student", formData)
-         //    .then((res) => {
-         //       console.log("User created successfully:", res);
-         //    })
-         //    .catch((error) => {
-         //       console.error("Error creating user:", error);
-         //    });
-         // alert("User created successfully!");
-      } catch (error) {
-         console.error("Error creating user:", error);
-         alert("Error creating user. Please try again.");
+      const { full_name, email, password } = formData;
+      if (!formData.full_name || !formData.email || !formData.password) {
+         toast.error("Please fill in all fields.");
+         return;
+      } else {
+         try {
+            const response = await axios.post(
+               `${frappe_url}/api/method/indianadmission.api.student_auth.signup_student`,
+               null,
+               {
+                  params: {      
+                     email,
+                     password,
+                     full_name,
+                  },
+                  withCredentials: true,
+               }
+            );
+            const res = response.data.message;
+            if (res.status === "200") {
+               toast.success(res.message);
+               localStorage.setItem("authToken", res.token);
+               navigate("/");
+            } else if (res.status === "400") {
+               toast.error(res.message);
+            } else {
+               toast.error("Something went wrong. Please try again later.");
+            }
+         } catch (error) {
+            console.error("Error creating user:", error);
+            toast.error("Something went wrong. Please try again later.");
+         }
       }
    };
    return (

@@ -14,6 +14,7 @@ import Contactus from "./Pages/Contactus/Contactus";
 import { FrappeProvider } from "frappe-react-sdk";
 import PageNotFound from "./Pages/PageNotFound/PageNotFound";
 import StudentForm from "./Pages/StudentForm/StudentForm";
+import { Toaster } from "sonner";
 
 function App() {
    const frappe_url = import.meta.env.VITE_FRAPPE_URL;
@@ -35,6 +36,7 @@ function App() {
                <Route path="*" element={<PageNotFound />} />
             </Routes>
             <FooterComponent />
+            <Toaster position="top-center" duration={2100}/>
          </FrappeProvider>
       </>
    );
