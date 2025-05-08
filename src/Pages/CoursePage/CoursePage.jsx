@@ -99,7 +99,7 @@ function CoursePage() {
 
           {/* Apply button */}
           <div className="flex justify-end mt-4">
-            <button className="bg-orange-500 hover:bg-orange-600 text-white py-2 px-6 rounded-full">
+            <button  className="bg-orange-500 hover:bg-orange-600 text-white py-2 px-6 rounded-full">
               Apply now
             </button>
           </div>
