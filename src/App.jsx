@@ -12,6 +12,8 @@ import ProfilePage from "./Pages/Profile/ProfilePage";
 import CollegePage from "./Pages/CollegePage/CollegePage";
 import Contactus from "./Pages/Contactus/Contactus";
 import { FrappeProvider } from "frappe-react-sdk";
+import PageNotFound from "./Pages/PageNotFound/PageNotFound";
+import StudentForm from "./Pages/StudentForm/StudentForm";
 import { Toaster } from "sonner";
 
 function App() {
@@ -31,7 +33,8 @@ function App() {
                <Route path="/profile" element={<ProfilePage />} />
                <Route path="/college-page" element={<CollegePage />} />
                <Route path="/contact-us" element={<Contactus />} />
-               <Route path="*" element={<h1>404 Not Found</h1>} />
+               <Route path="/student-form" element={<StudentForm/>} />
+               <Route path="*" element={<PageNotFound/>} />
             </Routes>
             <FooterComponent />
             <Toaster position="top-center" />

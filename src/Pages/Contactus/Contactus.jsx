@@ -48,7 +48,7 @@ function Contactus() {
               </div>
               <div className="flex-1">
                 <label className="block text-sm font-medium">Last Name</label>
-                <input type="text" defaultValue="Doe"  placeholder='Enter Last Name' className="w-full border-b text-slate-700 border-gray-300 outline-none py-1" />
+                <input type="text"   placeholder='Enter Last Name' className="w-full border-b text-slate-700 border-gray-300 outline-none py-1" />
               </div>
             </div>
             <div className="flex flex-col md:flex-row gap-4">
@@ -58,7 +58,7 @@ function Contactus() {
               </div>
               <div className="flex-1">
                 <label className="block text-sm font-medium">Phone Number</label>
-                <input type="text" placeholder='Enter Phone Number' defaultValue="+1 012 3456 789" className="w-full border-b text-slate-700 border-gray-300 outline-none py-1" />
+                <input type="text" placeholder='Enter Phone Number' className="w-full border-b text-slate-700 border-gray-300 outline-none py-1" />
               </div>
             </div>
             <div>
