@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import bgSignupImg from "../../assets/signupbg.svg";
 import { HiEyeOff } from "react-icons/hi";
 import { EyeIcon } from "@heroicons/react/16/solid";
@@ -6,9 +6,11 @@ import axios from "axios";
 import { frappe_url } from "../../constants/globalConstants";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthProvider";
 
 function SignupPage() {
    const navigate = useNavigate();
+   const { login } = useContext(AuthContext);
    const [showPassword, setShowPassword] = useState(false);
    const [formData, setFormData] = useState({
       full_name: "",
@@ -33,7 +35,7 @@ function SignupPage() {
                `${frappe_url}/api/method/indianadmission.api.student_auth.signup_student`,
                null,
                {
-                  params: {      
+                  params: {
                      email,
                      password,
                      full_name,
@@ -44,6 +46,7 @@ function SignupPage() {
             const res = response.data.message;
             if (res.status === "200") {
                toast.success(res.message);
+               login(res.student_id, res.token);
                localStorage.setItem("authToken", res.token);
                navigate("/");
             } else if (res.status === "400") {

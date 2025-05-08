@@ -11,32 +11,43 @@ import SavedCourse from "./Pages/SavedCourse/SavedCourse";
 import ProfilePage from "./Pages/Profile/ProfilePage";
 import CollegePage from "./Pages/CollegePage/CollegePage";
 import Contactus from "./Pages/Contactus/Contactus";
-import { FrappeProvider } from "frappe-react-sdk";
 import PageNotFound from "./Pages/PageNotFound/PageNotFound";
 import StudentForm from "./Pages/StudentForm/StudentForm";
+
+import { FrappeProvider } from "frappe-react-sdk";
 import { Toaster } from "sonner";
+import { useContext } from "react";
+import { frappe_url } from "./constants/globalConstants";
+import { AuthContext } from "./context/AuthProvider";
+
+function ProtectedRoute({ children }) {
+   const { isAuthenticated, loading } = useContext(AuthContext);
+
+   if (loading) return <p>Loading...</p>;
+
+   return isAuthenticated ? children : <Navigate to="/login" />;
+}
 
 function App() {
-   const frappe_url = import.meta.env.VITE_FRAPPE_URL;
    return (
       <>
          <FrappeProvider url={frappe_url} enableSocket={false}>
             <Routes>
                <Route path="/" element={<Home />} />
-               <Route path="/course" element={<CoursePage />} />
-               <Route path="/course-list" element={<CourseList />} />
                <Route path="/login" element={<LoginPage />} />
                <Route path="/signup" element={<SignupPage />} />
                <Route path="/forgot-password" element={<ForgotPassword />} />
-               <Route path="/saved-course" element={<SavedCourse />} />
-               <Route path="/profile" element={<ProfilePage />} />
                <Route path="/college-page" element={<CollegePage />} />
-               <Route path="/contact-us" element={<Contactus />} />
+               <Route path="/course" element={<CoursePage />} />
+               <Route path="/course-list" element={<CourseList />} />
+               <Route path="/profile" element={<ProfilePage />} />
                <Route path="/student-form" element={<StudentForm />} />
+               <Route path="/saved-course" element={<SavedCourse />} />
+               <Route path="/contact-us" element={<Contactus />} />
                <Route path="*" element={<PageNotFound />} />
             </Routes>
             <FooterComponent />
-            <Toaster position="top-center" duration={2100}/>
+            <Toaster position="top-center" duration={2100} />
          </FrappeProvider>
       </>
    );
