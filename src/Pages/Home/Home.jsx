@@ -1,5 +1,5 @@
 import { Dropdown } from "primereact/dropdown";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import logo from "../../assets/main-logo.svg";
@@ -18,8 +18,11 @@ import mars from "../../assets/mars.svg";
 import testimony1 from "../../assets/testimony1.svg";
 import testimony2 from "../../assets/testimony2.svg";
 import testimony3 from "../../assets/testimony3.svg";
+import axios from "axios";
+import { toast } from "sonner";
 
 function Home() {
+   const frappe_url = import.meta.env.VITE_FRAPPE_URL;
    const [state, setState] = useState(null);
    const navigate = useNavigate();
    const indianStates = [
@@ -86,6 +89,16 @@ function Home() {
          avatar: testimony3,
       },
    ];
+
+   useEffect(() => {
+      const token = localStorage.getItem("authToken");
+      if (token) {
+         const res = axios.post(
+            "https://127.0.0.1:8000/api/method/indianadmission.student.get_profile"
+         );
+         console.log(res.data);
+      }
+   });
 
    return (
       <>

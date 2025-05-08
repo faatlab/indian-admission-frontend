@@ -12,23 +12,14 @@ import ProfilePage from "./Pages/Profile/ProfilePage";
 import CollegePage from "./Pages/CollegePage/CollegePage";
 import Contactus from "./Pages/Contactus/Contactus";
 import { FrappeProvider } from "frappe-react-sdk";
+import { Toaster } from "sonner";
 
 function App() {
-   const api_key = import.meta.env.VITE_FRAPPE_STUDENT_KEY;
-   const api_secret = import.meta.env.VITE_FRAPPE_STUDENT_SECRET;
    const frappe_url = import.meta.env.VITE_FRAPPE_URL;
+
    return (
       <>
-         <FrappeProvider
-            url="http://indianadmission.localhost:8000"
-            // socketPort="9000"
-            enableSocket={false}
-            tokenParams={{
-               type: "token",
-               useToken: "true",
-               token: () => `${api_key}:${api_secret}`,
-            }}
-         >
+         <FrappeProvider url={frappe_url} enableSocket={false}>
             <Routes>
                <Route path="/" element={<Home />} />
                <Route path="/course" element={<CoursePage />} />
@@ -43,6 +34,7 @@ function App() {
                <Route path="*" element={<h1>404 Not Found</h1>} />
             </Routes>
             <FooterComponent />
+            <Toaster position="top-center" />
          </FrappeProvider>
       </>
    );
