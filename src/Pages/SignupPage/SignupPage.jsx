@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import bgSignupImg from "../../assets/signupbg.svg";
 import { HiEyeOff } from "react-icons/hi";
 import { EyeIcon } from "@heroicons/react/16/solid";
-import { useFrappeCreateDoc } from "frappe-react-sdk";
+import axios from "axios";
+import { frappe_url } from "../../constants/globalConstants";
 
 function SignupPage() {
    const [showPassword, setShowPassword] = useState(false);
@@ -11,26 +12,26 @@ function SignupPage() {
       email: "",
       password: "",
    });
-   const { createDoc } = useFrappeCreateDoc();
 
    const getFormData = (e) => {
       const { name, value } = e.target;
       setFormData((prev) => ({ ...prev, [name]: value }));
    };
 
-   console.log("data", formData);
    const handleSubmit = async (e) => {
       e.preventDefault();
       console.log(formData);
       
       try {
-         await createDoc("Student", formData)
-            .then((res) => {
-               console.log("User created successfully:", res);
-            })
-            .catch((error) => {
-               console.error("Error creating user:", error);
-            });
+         const response  = await axios.post(frappe_url + "/api/method/indianadmission.api.student.signup_student",formData)
+         console.log(response.data);
+         // await createDoc("Student", formData)
+         //    .then((res) => {
+         //       console.log("User created successfully:", res);
+         //    })
+         //    .catch((error) => {
+         //       console.error("Error creating user:", error);
+         //    });
          // alert("User created successfully!");
       } catch (error) {
          console.error("Error creating user:", error);
