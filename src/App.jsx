@@ -16,6 +16,7 @@ import StudentForm from "./Pages/StudentForm/StudentForm";
 
 import { FrappeProvider } from "frappe-react-sdk";
 import { Toaster } from "sonner";
+import Faq from "./Pages/Faq/faq";
 import { useContext } from "react";
 import { frappe_url } from "./constants/globalConstants";
 import { AuthContext } from "./context/AuthProvider";

@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaFacebookF, FaLinkedinIn, FaTwitter } from 'react-icons/fa';
 import mainLogo from '../../assets/main-logo.svg';
+import wave from '../../assets/wave.webp';
 
 function FooterComponent() {
   return (
@@ -23,7 +24,7 @@ function FooterComponent() {
               👀 Insights
             </button>
             <button  className="bg-gray-100 text-gray-900 px-5 py-2 rounded-full text-sm flex items-center gap-2 hover:bg-gray-200 transition">
-              👋 Contact
+              <div className='w-5'><img src={wave} alt="" /></div> Contact
             </button>
           </div>
         </div>
