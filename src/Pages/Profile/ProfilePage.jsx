@@ -39,6 +39,12 @@ function ProfilePage() {
       setFormData((prev) => ({ ...prev, [name]: value }));
    };
 
+   const handleUpload = (e) => {
+      const file = e.target.files[0];
+      console.log(file);
+      
+   };
+
    return (
       <div className="min-h-screen bg-white px-6 py-8 md:px-16 w-3/4 mx-auto mt-15">
          <div className="flex justify-between items-start flex-wrap gap-y-4">
@@ -161,9 +167,17 @@ function ProfilePage() {
                Upload Documents
             </label>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-               <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center cursor-pointer hover:border-orange-500">
+               <label
+                  className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center cursor-pointer hover:border-orange-500"
+               >
                   <p className="text-sm text-gray-600">10th Marksheet</p>
-               </div>
+                  <input
+                     type="file"
+                     name="10th_marksheet"
+                     onChange={handleUpload}
+                     style={{ display: "none" }}
+                  />
+               </label>
                <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center cursor-pointer hover:border-orange-500">
                   <p className="text-sm text-gray-600">12th Marksheet</p>
                </div>

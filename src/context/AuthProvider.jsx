@@ -42,10 +42,7 @@ function AuthProvider({ children }) {
       setUser(null);
       setToken(null);
       setIsAuthenticated(false);
-   };
-
-   console.log(user);
-   
+   };   
 
    return (
       <AuthContext.Provider
