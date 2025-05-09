@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
 import FooterComponent from "./components/FooterComponent/FooterComponent";
 import Home from "./Pages/Home/Home";
@@ -15,10 +15,10 @@ import PageNotFound from "./Pages/PageNotFound/PageNotFound";
 import StudentForm from "./Pages/StudentForm/StudentForm";
 
 import { FrappeProvider } from "frappe-react-sdk";
-import { Toaster } from "sonner";
+import { toast, Toaster } from "sonner";
 import Faq from "./Pages/Faq/faq";
 import { useContext } from "react";
-import { frappe_url } from "./constants/globalConstants";
+import { api_key, api_secret, frappe_url } from "./constants/globalConstants";
 import { AuthContext } from "./context/AuthProvider";
 
 function ProtectedRoute({ children }) {
@@ -26,25 +26,80 @@ function ProtectedRoute({ children }) {
 
    if (loading) return <p>Loading...</p>;
 
-   return isAuthenticated ? children : <Navigate to="/login" />;
+   if (!isAuthenticated) {
+      toast.error("You need to log in to access this page.");
+      return <Navigate to="/login" />;
+   }
+   return children;
 }
 
 function App() {
    return (
       <>
-         <FrappeProvider url={frappe_url} enableSocket={false}>
+         <FrappeProvider
+            url={frappe_url}
+            enableSocket={false}
+            tokenParams={{
+               type: "token",
+               useToken: "true",
+               token: () => `${api_key}:${api_secret}`,
+            }}
+         >
             <Routes>
                <Route path="/" element={<Home />} />
                <Route path="/login" element={<LoginPage />} />
                <Route path="/signup" element={<SignupPage />} />
                <Route path="/forgot-password" element={<ForgotPassword />} />
-               <Route path="/college-page" element={<CollegePage />} />
-               <Route path="/course" element={<CoursePage />} />
-               <Route path="/course-list" element={<CourseList />} />
-               <Route path="/profile" element={<ProfilePage />} />
-               <Route path="/student-form" element={<StudentForm />} />
-               <Route path="/saved-course" element={<SavedCourse />} />
                <Route path="/contact-us" element={<Contactus />} />
+               <Route
+                  path="/college-page"
+                  element={
+                     <ProtectedRoute>
+                        <CollegePage />
+                     </ProtectedRoute>
+                  }
+               />
+               <Route
+                  path="/course-list"
+                  element={
+                     <ProtectedRoute>
+                        <CourseList />
+                     </ProtectedRoute>
+                  }
+               />
+               <Route
+                  path="/course"
+                  element={
+                     <ProtectedRoute>
+                        <CoursePage />
+                     </ProtectedRoute>
+                  }
+               />
+               <Route
+                  path="/profile"
+                  element={
+                     <ProtectedRoute>
+                        <ProfilePage />
+                     </ProtectedRoute>
+                  }
+               />
+               <Route
+                  path="/student-form"
+                  element={
+                     <ProtectedRoute>
+                        <StudentForm />
+                     </ProtectedRoute>
+                  }
+               />
+               <Route
+                  path="/saved-course"
+                  element={
+                     <ProtectedRoute>
+                        <SavedCourse />
+                     </ProtectedRoute>
+                  }
+               />
+               <Route path="/faq" element={<Faq />} />
                <Route path="*" element={<PageNotFound />} />
             </Routes>
             <FooterComponent />

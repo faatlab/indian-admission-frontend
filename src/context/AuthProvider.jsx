@@ -12,14 +12,9 @@ function AuthProvider({ children }) {
 
    useEffect(() => {
       const verifyUser = async () => {
-         if (!token || isAuthenticated) {
-            setLoading(false);
-            return;
-         }
-
          try {
             const res = await authenticate();
-            setUser(res);
+            setUser(res.student_id);
             setIsAuthenticated(true);
          } catch (err) {
             console.error("Auth failed:", err);
@@ -48,6 +43,9 @@ function AuthProvider({ children }) {
       setToken(null);
       setIsAuthenticated(false);
    };
+
+   console.log(user);
+   
 
    return (
       <AuthContext.Provider

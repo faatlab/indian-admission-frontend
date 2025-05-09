@@ -15,6 +15,7 @@ function LoginPage() {
    const [formData, setFormData] = useState({
       email: "",
       password: "",
+      remember : "off",
    });
 
    const getFormData = (e) => {
@@ -24,23 +25,28 @@ function LoginPage() {
 
    const handleSubmit = async (e) => {
       e.preventDefault();
-      const { email, password } = formData;
+      const { email, password, remember } = formData;
+      let exp_days = 7;
+
       if (!email || !password) {
          toast.warning("Please fill in all fields.");
          return;
       } else {
+         if (remember === "on") {
+            exp_days = 30;
+         }
          try {
             const res = (
                await axios.post(
                   `${frappe_url}/api/method/indianadmission.api.student_auth.verify_student_login`,
-                  { email, password }
+                  { email, password, exp_days }
                )
             ).data.message;
 
             if (res.status === "200") {
                login(res.student_id, res.token);
                toast.success(res.message);
-               navigate("/");
+               navigate("/profile");
             } else if (res.status === "404") {
                toast.error(res.message);
             } else if (res.status === "401") {
@@ -132,7 +138,13 @@ function LoginPage() {
 
                      {/* Remember Me */}
                      <div className="flex items-center text-sm">
-                        <input type="checkbox" id="remember" className="mr-2" />
+                        <input
+                           type="checkbox"
+                           id="remember"
+                           className="mr-2"
+                           name="remember"
+                           onChange={getFormData}
+                        />
                         <label htmlFor="remember">
                            Remember for{" "}
                            <span className="font-medium">30 days</span>

@@ -6,7 +6,6 @@ import 'primereact/resources/themes/tailwind-light/theme.css';
 import './index.css';
 import App from './App.jsx';
 import { BrowserRouter } from 'react-router-dom';
-import ContextShare from './context/ContextShare.jsx';
 import AuthProvider from './context/AuthProvider.jsx';
 
 createRoot(document.getElementById('root')).render(
