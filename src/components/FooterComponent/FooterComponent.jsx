@@ -2,6 +2,8 @@ import React from 'react';
 import { FaFacebookF, FaLinkedinIn, FaTwitter } from 'react-icons/fa';
 import mainLogo from '../../assets/main-logo.svg';
 import wave from '../../assets/wave.webp';
+import think from '../../assets/think.webp';
+import tc from '../../assets/tc.webp';
 
 function FooterComponent() {
   return (
@@ -21,10 +23,23 @@ function FooterComponent() {
           {/* Buttons */}
           <div className="mt-6 flex justify-center gap-4 flex-wrap">
             <button className="bg-gray-100 text-gray-900 px-5 py-2 rounded-full text-sm flex items-center gap-2 hover:bg-gray-200 transition">
-              👀 Insights
+              <div className="w-5">
+                <img src={think} alt="" />
+              </div>{' '}
+              Faq
             </button>
-            <button  className="bg-gray-100 text-gray-900 px-5 py-2 rounded-full text-sm flex items-center gap-2 hover:bg-gray-200 transition">
-              <div className='w-5'><img src={wave} alt="" /></div> Contact
+            <button className="bg-gray-100 text-gray-900 px-5 py-2 rounded-full text-sm flex items-center gap-2 hover:bg-gray-200 transition">
+              <div className="w-5">
+                <img src={tc} alt="" />
+              </div>{' '}
+              T&C
+            </button>
+           
+              <button className="bg-gray-100 text-gray-900 px-5 py-2 rounded-full text-sm flex items-center gap-2 hover:bg-gray-200 transition">
+              <div className="w-5">
+                <img src={wave} alt="" />
+              </div>{' '}
+              Contact
             </button>
           </div>
         </div>

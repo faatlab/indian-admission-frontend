@@ -16,7 +16,7 @@ function ProfilePage() {
       full_name: "",
       email: "",
       phone_number: "",
-      country: "",
+      nationality: "",
       gender: "",
    });
 
@@ -125,12 +125,12 @@ function ProfilePage() {
 
             <div>
                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Country
+                  Nationality
                </label>
                <input
                   type="text"
                   disabled={!isEditing}
-                  value={data?.country || ""}
+                  value={data?.nationality || ""}
                   onChange={getFormData}
                   placeholder="Your First Name"
                   className="w-full bg-gray-100 rounded-lg px-4 py-2 text-sm outline-none disabled:opacity-70"

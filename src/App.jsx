@@ -54,49 +54,37 @@ function App() {
                <Route
                   path="/college-page"
                   element={
-                     <ProtectedRoute>
-                        <CollegePage />
-                     </ProtectedRoute>
+                     <CollegePage />
                   }
                />
                <Route
                   path="/course-list"
                   element={
-                     <ProtectedRoute>
-                        <CourseList />
-                     </ProtectedRoute>
+                   <CourseList />
                   }
                />
                <Route
                   path="/course"
                   element={
-                     <ProtectedRoute>
-                        <CoursePage />
-                     </ProtectedRoute>
+                      <CoursePage />
                   }
                />
                <Route
                   path="/profile"
                   element={
-                     <ProtectedRoute>
-                        <ProfilePage />
-                     </ProtectedRoute>
+                    <ProfilePage />
                   }
                />
                <Route
                   path="/student-form"
                   element={
-                     <ProtectedRoute>
-                        <StudentForm />
-                     </ProtectedRoute>
+                      <StudentForm />
                   }
                />
                <Route
                   path="/saved-course"
                   element={
-                     <ProtectedRoute>
-                        <SavedCourse />
-                     </ProtectedRoute>
+                      <SavedCourse />
                   }
                />
                <Route path="/faq" element={<Faq />} />
