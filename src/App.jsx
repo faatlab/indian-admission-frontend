@@ -17,9 +17,12 @@ import StudentForm from "./Pages/StudentForm/StudentForm";
 import { FrappeProvider } from "frappe-react-sdk";
 import { toast, Toaster } from "sonner";
 import Faq from "./Pages/Faq/faq";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { api_key, api_secret, frappe_url } from "./constants/globalConstants";
 import { AuthContext } from "./context/AuthProvider";
+import TermsAndConditions from "./Pages/TermsAndConditions/TermsAndConditions";
+import Privacy from "./Pages/Privacy/Privacy";
+
 
 function ProtectedRoute({ children }) {
    const { isAuthenticated, loading } = useContext(AuthContext);
@@ -34,6 +37,7 @@ function ProtectedRoute({ children }) {
 }
 
 function App() {
+    
    return (
       <>
          <FrappeProvider
@@ -51,6 +55,8 @@ function App() {
                <Route path="/signup" element={<SignupPage />} />
                <Route path="/forgot-password" element={<ForgotPassword />} />
                <Route path="/contact-us" element={<Contactus />} />
+               <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+               <Route path="/privacy-policy" element={<Privacy />} />
                <Route
                   path="/college-page"
                   element={

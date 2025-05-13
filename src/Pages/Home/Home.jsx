@@ -17,9 +17,8 @@ import course3 from '../../assets/course3.svg';
 import save from '../../assets/save.svg';
 import down from '../../assets/down arow.svg';
 import mars from '../../assets/mars.svg';
-import testimony1 from '../../assets/testimony1.svg';
-import testimony2 from '../../assets/testimony2.svg';
-import testimony3 from '../../assets/testimony3.svg';
+import Aos from 'aos';
+import 'aos/dist/aos.css';
 
 function Home() {
   const [state, setState] = useState(null);
@@ -69,46 +68,47 @@ function Home() {
       </span>
     ));
 
- const testimonials = [
-  {
-    quote: "This platform changed my life!",
-    avatar: "https://randomuser.me/api/portraits/women/44.jpg",
-    name: "Sarah Lee",
-    role: "Software Engineer",
-  },
-  {
-    quote: "Excellent guidance and support. asdjsalkdakasjdaskjldajd asdjlkdjalkjslda ajdlasjdlkajdsl",
-    avatar: "https://randomuser.me/api/portraits/men/46.jpg",
-    name: "James Kim",
-    role: "Data Scientist",
-  },
-  {
-    quote: "Highly recommend to every student!",
-    avatar: "https://randomuser.me/api/portraits/women/65.jpg",
-    name: "Amanda Stone",
-    role: "Product Designer",
-  },
-  {
-    quote: "Very informative and helpful.",
-    avatar: "https://randomuser.me/api/portraits/men/70.jpg",
-    name: "David Lin",
-    role: "Marketing Analyst",
-  },
-  {
-    quote: "I landed a job within weeks.",
-    avatar: "https://randomuser.me/api/portraits/women/85.jpg",
-    name: "Olivia Tran",
-    role: "UX Researcher",
-  },
-  {
-    quote: "The best mentorship I’ve received.",
-    avatar: "https://randomuser.me/api/portraits/men/80.jpg",
-    name: "Tom Jackson",
-    role: "AI Engineer",
-  },
-];
+  const testimonials = [
+    {
+      quote: 'This platform changed my life!',
+      avatar: 'https://randomuser.me/api/portraits/women/44.jpg',
+      name: 'Sarah Lee',
+      role: 'Software Engineer',
+    },
+    {
+      quote:
+        'Excellent guidance and support. asdjsalkdakasjdaskjldajd asdjlkdjalkjslda ajdlasjdlkajdsl',
+      avatar: 'https://randomuser.me/api/portraits/men/46.jpg',
+      name: 'James Kim',
+      role: 'Data Scientist',
+    },
+    {
+      quote: 'Highly recommend to every student!',
+      avatar: 'https://randomuser.me/api/portraits/women/65.jpg',
+      name: 'Amanda Stone',
+      role: 'Product Designer',
+    },
+    {
+      quote: 'Very informative and helpful.',
+      avatar: 'https://randomuser.me/api/portraits/men/70.jpg',
+      name: 'David Lin',
+      role: 'Marketing Analyst',
+    },
+    {
+      quote: 'I landed a job within weeks.',
+      avatar: 'https://randomuser.me/api/portraits/women/85.jpg',
+      name: 'Olivia Tran',
+      role: 'UX Researcher',
+    },
+    {
+      quote: 'The best mentorship I’ve received.',
+      avatar: 'https://randomuser.me/api/portraits/men/80.jpg',
+      name: 'Tom Jackson',
+      role: 'AI Engineer',
+    },
+  ];
 
- const groupSize = 3;
+  const groupSize = 3;
   const [currentGroup, setCurrentGroup] = useState(0);
   const [fade, setFade] = useState(true);
   const totalGroups = Math.ceil(testimonials.length / groupSize);
@@ -130,7 +130,6 @@ function Home() {
     return testimonials.slice(start, start + groupSize);
   };
 
-
   const handleSearch = () => {
     if (search) {
       navigate('/course-list', {
@@ -138,6 +137,10 @@ function Home() {
       });
     }
   };
+
+  useEffect(() => {
+    Aos.init({ duration: 600 });
+  }, []);
 
   return (
     <>
@@ -222,7 +225,7 @@ function Home() {
                     type="submit"
                     className="text-white absolute top-1 right-1 h-14 bg-[#FF671F]  font-medium rounded-[50px] text-sm px-4 w-24"
                   >
-                    Continue
+                    Search
                   </button>
                 </div>
               </form>
@@ -322,7 +325,10 @@ function Home() {
         </div>
         {/* major universitycsection  */}
         <div>
-          <div className="flex justify-between items-center mx-30 my-20">
+          <div
+            data-aos="fade-up"
+            className="flex justify-between items-center mx-30 my-20"
+          >
             <h2 className="text-3xl font-black text-[#535353]">
               Major Universities
             </h2>{' '}
@@ -330,9 +336,9 @@ function Home() {
               See more
             </button>
           </div>
-          <div className="flex justify-center gap-12">
+          <div data-aos="fade-up" className="flex justify-center gap-12">
             {/* Card 1 */}
-            <div className="bg-white shadow-lg rounded-[28px] overflow-hidden p-5 max-w-sm w-[18rem] h-[22rem]">
+            <div className=" bg-white shadow-lg rounded-[28px] overflow-hidden p-5 max-w-sm w-[18rem] h-[22rem]">
               <div className="p-4 w-full">
                 <img
                   className="h-20 object-cover"
@@ -427,8 +433,8 @@ function Home() {
         </div>
 
         {/* path section  */}
-        <div>
-          <div className="text-center mt-20">
+        <div data-aos="fade-down">
+          <div data-aos="zoom-in" className="text-center mt-20">
             <h1 className="text-4xl text-[#486284]">
               Your Step-by-Step Guide to the Indian Admission Process
             </h1>
@@ -439,7 +445,10 @@ function Home() {
               essential step to secure your spot in a top Indian institution.
             </p>
           </div>
-          <div className="relative flex flex-col md:flex-row justify-center mt-10 gap-40">
+          <div
+            data-aos=""
+            className="relative flex flex-col md:flex-row justify-center mt-10 gap-40"
+          >
             <div className="flex flex-col items-center mt-5">
               <div className="w-32 h-32 bg-[#486284]/30 rounded-[2rem] flex items-center justify-center">
                 <img className="w-20 h-20" src={college} alt="location" />
@@ -508,236 +517,240 @@ function Home() {
             </div>
           </div>
         </div>
-        <div>
-          {/* trending courses */}
-          <div className="flex justify-between items-center mx-30 my-20">
-            <h2 className="text-3xl font-black text-[#535353]">
-              Trending Courses
-            </h2>{' '}
-            <button className="text-white h-12 bg-[#FF671F]  font-medium rounded-[50px] text-sm px-4">
-              See more
-            </button>
-          </div>
-        </div>
-        {/* card  */}
-        <div className=" flex flex-row items-center gap-6 justify-center flex-wrap mt-3 mb-20">
-          {/* Card 1 */}
-          <div className="flex w-full max-w-md rounded-xl overflow-hidden shadow-md bg-white gap-2">
-            <div className="flex flex-col justify-between p-4 flex-1">
-              <h2 className="text-lg font-semibold text-gray-800 mb-3">
-                Bachelor of Computer Applications
-              </h2>
-              <div className="flex items-center space-x-1">
-                {renderStars(3)}
-                <span className="ml-auto text-gray-600 text-lg cursor-pointer">
-                  <img src={save} alt="" />
-                </span>
-              </div>
+        <div data-aos="fade-up">
+          <div>
+            {/* trending courses */}
+            <div className="flex justify-between items-center mx-30 my-20">
+              <h2 className="text-3xl font-black text-[#535353]">
+                Trending Courses
+              </h2>{' '}
+              <button className="text-white h-12 bg-[#FF671F]  font-medium rounded-[50px] text-sm px-4">
+                See more
+              </button>
             </div>
-            <img src={course1} alt="BCA" className="w-40 object-cover" />
           </div>
-
-          {/* Card 2 */}
-          <div className="flex w-full max-w-md rounded-xl overflow-hidden shadow-md bg-white">
-            <div className="flex flex-col justify-between p-4 flex-1">
-              <h2 className="text-lg font-semibold text-gray-800 mb-3">
-                Bachelor of Information Technology
-              </h2>
-              <div className="flex items-center space-x-1">
-                {renderStars(4)}
-                <span className="ml-auto text-gray-600 text-lg cursor-pointer">
-                  <img src={save} alt="" />
-                </span>
-              </div>
-            </div>
-            <img src={course2} alt="BIT" className="w-40 object-cover" />
-          </div>
-
-          {/* Card 3 */}
-          <div className="flex w-full max-w-md rounded-xl overflow-hidden shadow-md bg-white">
-            <div className="flex flex-col justify-between p-4 flex-1">
-              <h2 className="text-lg font-semibold text-gray-800 mb-3">
-                Bachelor of Data Science
-              </h2>
-              <div className="flex items-center space-x-1">
-                {renderStars(5)}
-                <span className="ml-auto text-gray-600 text-lg cursor-pointer">
-                  <img src={save} alt="" />
-                </span>
-              </div>
-            </div>
-            <img src={course3} alt="BDS" className="w-40 object-cover" />
-          </div>
-          <div className="flex w-full max-w-md rounded-xl overflow-hidden shadow-md bg-white">
-            <div className="flex flex-col justify-between p-4 flex-1">
-              <h2 className="text-lg font-semibold text-gray-800 mb-3">
-                Bachelor of Data Science
-              </h2>
-              <div className="flex items-center space-x-1">
-                {renderStars(5)}
-                <span className="ml-auto text-gray-600 text-lg cursor-pointer">
-                  <img src={save} alt="" />
-                </span>
-              </div>
-            </div>
-            <img src={course3} alt="BDS" className="w-40 object-cover" />
-          </div>
-          <div className="flex w-full max-w-md rounded-xl overflow-hidden shadow-md bg-white">
-            <div className="flex flex-col justify-between p-4 flex-1">
-              <h2 className="text-lg font-semibold text-gray-800 mb-3">
-                Bachelor of Data Science
-              </h2>
-              <div className="flex items-center space-x-1">
-                {renderStars(5)}
-                <span className="ml-auto text-gray-600 text-lg cursor-pointer">
-                  <img src={save} alt="" />
-                </span>
-              </div>
-            </div>
-            <img src={course3} alt="BDS" className="w-40 object-cover" />
-          </div>
-          <div className="flex w-full max-w-md rounded-xl overflow-hidden shadow-md bg-white">
-            <div className="flex flex-col justify-between p-4 flex-1">
-              <h2 className="text-lg font-semibold text-gray-800 mb-3">
-                Bachelor of Data Science
-              </h2>
-              <div className="flex items-center space-x-1">
-                {renderStars(5)}
-                <span className="ml-auto text-gray-600 text-lg cursor-pointer">
-                  <img src={save} alt="" />
-                </span>
-              </div>
-            </div>
-            <img src={course3} alt="BDS" className="w-40 object-cover" />
-          </div>
-          <div className="flex w-full max-w-md rounded-xl overflow-hidden shadow-md bg-white gap-2">
-            <div className="flex flex-col justify-between p-4 flex-1">
-              <h2 className="text-lg font-semibold text-gray-800 mb-3">
-                Bachelor of Computer Applications
-              </h2>
-              <div className="flex items-center space-x-1">
-                {renderStars(3)}
-                <span className="ml-auto text-gray-600 text-lg cursor-pointer">
-                  <img src={save} alt="" />
-                </span>
-              </div>
-            </div>
-            <img src={course1} alt="BCA" className="w-40 object-cover" />
-          </div>
-
-          {/* Card 2 */}
-          <div className="flex w-full max-w-md rounded-xl overflow-hidden shadow-md bg-white">
-            <div className="flex flex-col justify-between p-4 flex-1">
-              <h2 className="text-lg font-semibold text-gray-800 mb-3">
-                Bachelor of Information Technology
-              </h2>
-              <div className="flex items-center space-x-1">
-                {renderStars(4)}
-                <span className="ml-auto text-gray-600 text-lg cursor-pointer">
-                  <img src={save} alt="" />
-                </span>
-              </div>
-            </div>
-            <img src={course2} alt="BIT" className="w-40 object-cover" />
-          </div>
-          <div className="flex w-full max-w-md rounded-xl overflow-hidden shadow-md bg-white">
-            <div className="flex flex-col justify-between p-4 flex-1">
-              <h2 className="text-lg font-semibold text-gray-800 mb-3">
-                Bachelor of Information Technology
-              </h2>
-              <div className="flex items-center space-x-1">
-                {renderStars(4)}
-                <span className="ml-auto text-gray-600 text-lg cursor-pointer">
-                  <img src={save} alt="" />
-                </span>
-              </div>
-            </div>
-            <img src={course2} alt="BIT" className="w-40 object-cover" />
-          </div>
-        </div>
-
-        {/* testimony section */}
-         <section className="relative py-20 bg-white text-center overflow-hidden">
-      {/* Decorative Elements */}
-      <img
-        src={down}
-        alt="Arrow"
-        className="absolute left-5 top-1/2 transform -translate-y-1/2 w-16"
-      />
-      <div className="bg-[#FF7526]/20 z-0  h-100 w-150 blur-3xl flex justify-center position absolute  -left-50 right-0 "></div>
-          <div className="bg-[#FF7526]/20 z-0  h-100 w-150 blur-3xl flex justify-center position absolute  -right-50 "></div>
-
-      <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">
-        What Student’s Say
-      </h2>
-      <p className="text-gray-500 mb-12">
-        Lorem Ipsum is simply dummy text of the printing.
-      </p>
-
-      {/* Testimonial Cards with fade animation */}
-      <div className="relative w-full flex justify-center">
-        <div
-          className={`flex flex-col md:flex-row items-stretch justify-center gap-6 px-4 md:px-0 transition-opacity duration-500 ${
-            fade ? "opacity-100" : "opacity-0"
-          } z-10`}
-        >
-          {getGroupedTestimonials().map((t, index) => (
-            <div
-              key={index}
-              className="bg-white shadow-lg rounded-md p-6 w-80   md:w-90  text-left z-50 flex flex-col justify-between h-full"
-            >
-              <p className="md:min-h-26 min-h-18  text-gray-600 italic mb-4 text-[15px] max-h-40 overflow-y-auto">
-                {t.quote}
-              </p>
-              <div className="flex items-center gap-3 mt-4">
-                <img
-                  src={t.avatar}
-                  alt={t.name}
-                  className="w-10 h-10 rounded-full object-cover"
-                />
-                <div>
-                  <p className="font-semibold text-gray-800">{t.name}</p>
-                  <p className="text-sm text-gray-500">{t.role}</p>
+          {/* card  */}
+          <div className=" flex flex-row items-center gap-6 justify-center flex-wrap mt-3 mb-20">
+            {/* Card 1 */}
+            <div className="flex w-full max-w-md rounded-xl overflow-hidden shadow-md bg-white gap-2">
+              <div className="flex flex-col justify-between p-4 flex-1">
+                <h2 className="text-lg font-semibold text-gray-800 mb-3">
+                  Bachelor of Computer Applications
+                </h2>
+                <div className="flex items-center space-x-1">
+                  {renderStars(3)}
+                  <span className="ml-auto text-gray-600 text-lg cursor-pointer">
+                    <img src={save} alt="" />
+                  </span>
                 </div>
               </div>
+              <img src={course1} alt="BCA" className="w-40 object-cover" />
             </div>
-          ))}
+
+            {/* Card 2 */}
+            <div className="flex w-full max-w-md rounded-xl overflow-hidden shadow-md bg-white">
+              <div className="flex flex-col justify-between p-4 flex-1">
+                <h2 className="text-lg font-semibold text-gray-800 mb-3">
+                  Bachelor of Information Technology
+                </h2>
+                <div className="flex items-center space-x-1">
+                  {renderStars(4)}
+                  <span className="ml-auto text-gray-600 text-lg cursor-pointer">
+                    <img src={save} alt="" />
+                  </span>
+                </div>
+              </div>
+              <img src={course2} alt="BIT" className="w-40 object-cover" />
+            </div>
+
+            {/* Card 3 */}
+            <div className="flex w-full max-w-md rounded-xl overflow-hidden shadow-md bg-white">
+              <div className="flex flex-col justify-between p-4 flex-1">
+                <h2 className="text-lg font-semibold text-gray-800 mb-3">
+                  Bachelor of Data Science
+                </h2>
+                <div className="flex items-center space-x-1">
+                  {renderStars(5)}
+                  <span className="ml-auto text-gray-600 text-lg cursor-pointer">
+                    <img src={save} alt="" />
+                  </span>
+                </div>
+              </div>
+              <img src={course3} alt="BDS" className="w-40 object-cover" />
+            </div>
+            <div className="flex w-full max-w-md rounded-xl overflow-hidden shadow-md bg-white">
+              <div className="flex flex-col justify-between p-4 flex-1">
+                <h2 className="text-lg font-semibold text-gray-800 mb-3">
+                  Bachelor of Data Science
+                </h2>
+                <div className="flex items-center space-x-1">
+                  {renderStars(5)}
+                  <span className="ml-auto text-gray-600 text-lg cursor-pointer">
+                    <img src={save} alt="" />
+                  </span>
+                </div>
+              </div>
+              <img src={course3} alt="BDS" className="w-40 object-cover" />
+            </div>
+            <div className="flex w-full max-w-md rounded-xl overflow-hidden shadow-md bg-white">
+              <div className="flex flex-col justify-between p-4 flex-1">
+                <h2 className="text-lg font-semibold text-gray-800 mb-3">
+                  Bachelor of Data Science
+                </h2>
+                <div className="flex items-center space-x-1">
+                  {renderStars(5)}
+                  <span className="ml-auto text-gray-600 text-lg cursor-pointer">
+                    <img src={save} alt="" />
+                  </span>
+                </div>
+              </div>
+              <img src={course3} alt="BDS" className="w-40 object-cover" />
+            </div>
+            <div className="flex w-full max-w-md rounded-xl overflow-hidden shadow-md bg-white">
+              <div className="flex flex-col justify-between p-4 flex-1">
+                <h2 className="text-lg font-semibold text-gray-800 mb-3">
+                  Bachelor of Data Science
+                </h2>
+                <div className="flex items-center space-x-1">
+                  {renderStars(5)}
+                  <span className="ml-auto text-gray-600 text-lg cursor-pointer">
+                    <img src={save} alt="" />
+                  </span>
+                </div>
+              </div>
+              <img src={course3} alt="BDS" className="w-40 object-cover" />
+            </div>
+            <div className="flex w-full max-w-md rounded-xl overflow-hidden shadow-md bg-white gap-2">
+              <div className="flex flex-col justify-between p-4 flex-1">
+                <h2 className="text-lg font-semibold text-gray-800 mb-3">
+                  Bachelor of Computer Applications
+                </h2>
+                <div className="flex items-center space-x-1">
+                  {renderStars(3)}
+                  <span className="ml-auto text-gray-600 text-lg cursor-pointer">
+                    <img src={save} alt="" />
+                  </span>
+                </div>
+              </div>
+              <img src={course1} alt="BCA" className="w-40 object-cover" />
+            </div>
+
+            {/* Card 2 */}
+            <div className="flex w-full max-w-md rounded-xl overflow-hidden shadow-md bg-white">
+              <div className="flex flex-col justify-between p-4 flex-1">
+                <h2 className="text-lg font-semibold text-gray-800 mb-3">
+                  Bachelor of Information Technology
+                </h2>
+                <div className="flex items-center space-x-1">
+                  {renderStars(4)}
+                  <span className="ml-auto text-gray-600 text-lg cursor-pointer">
+                    <img src={save} alt="" />
+                  </span>
+                </div>
+              </div>
+              <img src={course2} alt="BIT" className="w-40 object-cover" />
+            </div>
+            <div className="flex w-full max-w-md rounded-xl overflow-hidden shadow-md bg-white">
+              <div className="flex flex-col justify-between p-4 flex-1">
+                <h2 className="text-lg font-semibold text-gray-800 mb-3">
+                  Bachelor of Information Technology
+                </h2>
+                <div className="flex items-center space-x-1">
+                  {renderStars(4)}
+                  <span className="ml-auto text-gray-600 text-lg cursor-pointer">
+                    <img src={save} alt="" />
+                  </span>
+                </div>
+              </div>
+              <img src={course2} alt="BIT" className="w-40 object-cover" />
+            </div>
+          </div>
         </div>
-      </div>
-      
-
-      {/* Dots Navigation */}
-      <div className="mt-8 flex justify-center gap-2">
-        {Array.from({ length: totalGroups }).map((_, idx) => (
-          <button
-            key={idx}
-            onClick={() => {
-              setFade(false);
-              setTimeout(() => {
-                setCurrentGroup(idx);
-                setFade(true);
-              }, 300);
-            }}
-            className={`w-3 h-3 rounded-full transition-colors duration-300 ${
-              idx === currentGroup ? "bg-orange-500" : "bg-gray-300"
-            }`}
-          />
-        ))}
-      </div>
-
-      
-
-      {/* Planet Decorative Element */}
-      <img
-        src={mars}
-        alt="Planet"
-        className="absolute right-10 bottom-10 w-20 opacity-90"
-      />
-
-      <h3 className="mt-20 text-2xl md:text-3xl font-bold text-black">
-        Our Tracks
-      </h3>
-    </section>
+        {/* testimony section */}
+        <div>
+          <section  className="relative py-20 bg-white text-center overflow-hidden">
+            {/* Decorative Elements */}
+           <div data-aos="zoom-in-right" >
+              <img
+                src={down}
+                alt="Arrow"
+                className="absolute top-40 w-30 left-10"
+              />
+           </div>
+            <div className="bg-[#FF7526]/20 z-0  h-100 w-150 blur-3xl flex justify-center position absolute  -left-50 right-0 "></div>
+            <div className="bg-[#FF7526]/20 z-0  h-100 w-150 blur-3xl flex justify-center position absolute  -right-50 "></div>
+  
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">
+              What Student’s Say
+            </h2>
+            <p className="text-gray-500 mb-12">
+              Lorem Ipsum is simply dummy text of the printing.
+            </p>
+  
+            {/* Testimonial Cards with fade animation */}
+            <div  className="relative w-full flex justify-center">
+              <div
+                className={`flex flex-col md:flex-row items-stretch justify-center gap-6 px-4 md:px-0 transition-opacity duration-500 ${
+                  fade ? 'opacity-100' : 'opacity-0'
+                } z-10`}
+              >
+                {getGroupedTestimonials().map((t, index) => (
+                  <div
+                    key={index}
+                    className="bg-white shadow-lg rounded-md p-6 w-80   md:w-90  text-left z-50 flex flex-col justify-between h-full"
+                  >
+                    <p className="md:min-h-26 min-h-18  text-gray-600 italic mb-4 text-[15px] max-h-40 overflow-y-auto">
+                      {t.quote}
+                    </p>
+                    <div className="flex items-center gap-3 mt-4">
+                      <img
+                        src={t.avatar}
+                        alt={t.name}
+                        className="w-10 h-10 rounded-full object-cover"
+                      />
+                      <div>
+                        <p className="font-semibold text-gray-800">{t.name}</p>
+                        <p className="text-sm text-gray-500">{t.role}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+  
+            {/* Dots Navigation */}
+            <div className="mt-8 flex justify-center gap-2">
+              {Array.from({ length: totalGroups }).map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => {
+                    setFade(false);
+                    setTimeout(() => {
+                      setCurrentGroup(idx);
+                      setFade(true);
+                    }, 300);
+                  }}
+                  className={`w-3 h-3 rounded-full transition-colors duration-300 ${
+                    idx === currentGroup ? 'bg-orange-500' : 'bg-gray-300'
+                  }`}
+                />
+              ))}
+            </div>
+  
+            {/* Planet Decorative Element */}
+           <div data-aos="zoom-in-left" >
+              <img
+                src={mars}
+                alt="Planet"
+                className="absolute right-10 bottom-30 w-30 opacity-90"
+              />
+           </div>
+  
+            <h3 className="mt-20 text-2xl md:text-3xl font-bold text-black">
+              Our Tracks
+            </h3>
+          </section>
+        </div>
       </div>
     </>
   );
