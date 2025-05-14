@@ -1,9 +1,10 @@
 import React from 'react';
-import { FaFacebookF, FaLinkedinIn, FaTwitter } from 'react-icons/fa';
+import { FaFacebookF, FaInstagram, FaLinkedinIn, FaTwitter } from 'react-icons/fa';
 import mainLogo from '../../assets/main-logo.svg';
 import wave from '../../assets/wave.webp';
 import think from '../../assets/think.webp';
 import tc from '../../assets/tc.webp';
+import { FaXTwitter } from "react-icons/fa6";
 
 function FooterComponent() {
   return (
@@ -22,7 +23,7 @@ function FooterComponent() {
 
           {/* Buttons */}
           <div className="mt-6 flex justify-center gap-4 flex-wrap">
-            <button className="bg-gray-100 text-gray-900 px-5 py-2 rounded-full text-sm flex items-center gap-2 hover:bg-gray-200 transition">
+            <button className="bg-gray-100 text-gray-900 px-5 py-2 rounded-full text-sm flex items-center gap-2 hover:bg-gray-200 transition ">
               <div className="w-5">
                 <img src={think} alt="" />
               </div>{' '}
@@ -77,7 +78,13 @@ function FooterComponent() {
               href="#"
               className="p-2 rounded-full border border-gray-300 text-gray-800 hover:bg-gray-100"
             >
-              <FaTwitter size={16} />
+              <FaXTwitter size={16} />
+            </a>
+             <a
+              href="#"
+              className="p-2 rounded-full border border-gray-300 text-gray-800 hover:bg-gray-100"
+            >
+              <FaInstagram size={16} />
             </a>
           </div>
         </div>

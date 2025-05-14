@@ -22,7 +22,7 @@ import { api_key, api_secret, frappe_url } from "./constants/globalConstants";
 import { AuthContext } from "./context/AuthProvider";
 import TermsAndConditions from "./Pages/TermsAndConditions/TermsAndConditions";
 import Privacy from "./Pages/Privacy/Privacy";
-
+import ScrollToTop from "./components/ScrollToTop";
 
 function ProtectedRoute({ children }) {
    const { isAuthenticated, loading } = useContext(AuthContext);
@@ -37,7 +37,6 @@ function ProtectedRoute({ children }) {
 }
 
 function App() {
-    
    return (
       <>
          <FrappeProvider
@@ -49,50 +48,24 @@ function App() {
                token: () => `${api_key}:${api_secret}`,
             }}
          >
+            <ScrollToTop />
             <Routes>
                <Route path="/" element={<Home />} />
                <Route path="/login" element={<LoginPage />} />
                <Route path="/signup" element={<SignupPage />} />
                <Route path="/forgot-password" element={<ForgotPassword />} />
                <Route path="/contact-us" element={<Contactus />} />
-               <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+               <Route
+                  path="/terms-and-conditions"
+                  element={<TermsAndConditions />}
+               />
                <Route path="/privacy-policy" element={<Privacy />} />
-               <Route
-                  path="/college-page"
-                  element={
-                     <CollegePage />
-                  }
-               />
-               <Route
-                  path="/course-list"
-                  element={
-                   <CourseList />
-                  }
-               />
-               <Route
-                  path="/course"
-                  element={
-                      <CoursePage />
-                  }
-               />
-               <Route
-                  path="/profile"
-                  element={
-                    <ProfilePage />
-                  }
-               />
-               <Route
-                  path="/student-form"
-                  element={
-                      <StudentForm />
-                  }
-               />
-               <Route
-                  path="/saved-course"
-                  element={
-                      <SavedCourse />
-                  }
-               />
+               <Route path="/college-page" element={<CollegePage />} />
+               <Route path="/courses-page" element={<CourseList />} />
+               <Route path="/course" element={<CoursePage />} />
+               <Route path="/profile" element={<ProfilePage />} />
+               <Route path="/student-form" element={<StudentForm />} />
+               <Route path="/saved-course" element={<SavedCourse />} />
                <Route path="/faq" element={<Faq />} />
                <Route path="*" element={<PageNotFound />} />
             </Routes>

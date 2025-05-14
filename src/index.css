@@ -1,29 +1,29 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 @plugin "flowbite-react/plugin/tailwindcss";
 @source "../.flowbite-react/class-list.json";
 
-
 * {
-  font-family: 'Poppins', sans-serif;
+   font-family: "Poppins", sans-serif;
+   scroll-behavior: smooth;
 }
 
 .marquee-container {
-  overflow: hidden;
-  white-space: nowrap;
-  position: relative;
+   overflow: hidden;
+   white-space: nowrap;
+   position: relative;
 }
 
 .marqueeDiv {
-  display: flex;
-  width: max-content;
-  animation: marqueeAnimation 10s linear infinite;
+   display: flex;
+   width: max-content;
+   animation: marqueeAnimation 10s linear infinite;
 }
 
 @keyframes marqueeAnimation {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
+   0% {
+      transform: translateX(0);
+   }
+   100% {
+      transform: translateX(-100%);
+   }
 }
