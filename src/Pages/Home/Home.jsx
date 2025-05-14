@@ -153,7 +153,7 @@ function Home() {
          const response = await axios.get(`${api_url}/colleges/india`, {
             params: {
                limit: 4,
-               page: 7,
+               page: 8,
             },
          });
          if (response.status == 200) setMajorColleges(response.data.data);
@@ -434,14 +434,8 @@ function Home() {
                   className="flex justify-between items-center mx-30 my-20"
                >
                   <h2 className="text-3xl font-black text-[#535353]">
-                     Major Universities
+                     Major Colleges
                   </h2>{" "}
-                  <button
-                     onClick={() => navigate("/college-page")}
-                     className="text-white h-12 bg-[#FF671F]  font-medium rounded-[50px] text-sm px-4 cursor-pointer"
-                  >
-                     See more
-                  </button>
                </div>
                <div data-aos="fade-up" className="flex justify-center gap-12">
                   {/* Card 1 */}
@@ -695,7 +689,7 @@ function Home() {
 
                   <h3 className="mt-20 text-2xl md:text-3xl font-bold text-black">
                      Our Tracks
-                  </h3> 
+                  </h3>
                </section>
             </div>
          </div>

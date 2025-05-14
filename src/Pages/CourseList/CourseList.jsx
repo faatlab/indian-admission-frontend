@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import course1 from "../../assets/course1.svg";
 import course2 from "../../assets/course2.svg";
@@ -12,6 +12,7 @@ import { toast } from "sonner";
 function CourseList() {
    const [courses, setCourses] = useState([]);
    const [pageNum, setPageNum] = useState(1);
+   const navigate = useNavigate();
    const totalStars = 5;
    const renderStars = (rating) =>
       Array.from({ length: totalStars }).map((_, i) => (
@@ -78,13 +79,13 @@ function CourseList() {
 
    return (
       <div>
-         <div className="flex justify-between items-center mx-20 mt-20">
+         <div className="flex justify-between items-center mx-20 my-20">
             <h2 className="text-3xl font-black text-[#535353]">
-               Trending Courses
+               Browse Through Courses
             </h2>{" "}
          </div>
          {search_query && selected_state && (
-            <div className="searchInfo mx-20 my-10">
+            <div className="searchInfo mx-20 mb-10">
                <p className="text-xl">
                   Showing for "
                   <span className="text-orange-400 font-black">
@@ -103,6 +104,11 @@ function CourseList() {
             {courses.map((course) => (
                <div
                   key={course.course_id}
+                  onClick={() =>
+                     navigate(
+                        `/course/${course.course_name}?course_id=${course.course_id}`
+                     )
+                  }
                   className="flex w-full max-w-md rounded-xl overflow-hidden shadow-md bg-white gap-2"
                >
                   <div className="flex flex-col justify-between p-4 flex-1">
@@ -126,12 +132,24 @@ function CourseList() {
 
          <div className="w-full flex justify-center mt-10 mb-17">
             <div className="flex space-x-4">
-               <button className="px-6 py-2 rounded-full border border-gray-300 text-gray-600 hover:bg-gray-100 transition">
-                  previous page
+               <button
+                  disabled={pageNum > 1 ? false : true}
+                  onClick={() => {
+                     if (pageNum > 1) {
+                        setPageNum(pageNum - 1);
+                        window.scrollTo({ top: 0, behavior: "smooth" });
+                     }
+                  }}
+                  className="px-6 py-2 rounded-full border border-gray-300 text-gray-600 hover:bg-gray-100 transition cursor-pointer"
+               >
+                  Previous Page
                </button>
                <button
-                  onClick={() => setPageNum(pageNum + 1)}
-                  className="px-6 py-2 rounded-full bg-orange-500 text-white hover:bg-orange-600 transition"
+                  onClick={() => {
+                     setPageNum(pageNum + 1);
+                     window.scrollTo({ top: 0, behavior: "smooth" });
+                  }}
+                  className="px-6 py-2 rounded-full bg-orange-500 text-white hover:bg-orange-600 transition cursor-pointer"
                >
                   Next Page
                </button>

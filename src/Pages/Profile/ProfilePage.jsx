@@ -1,27 +1,42 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useFrappeGetDoc } from "frappe-react-sdk";
+import {
+   useFrappeFileUpload,
+   useFrappeGetDoc,
+   useFrappeUpdateDoc,
+} from "frappe-react-sdk";
 import { AuthContext } from "../../context/AuthProvider";
+import { toast } from "sonner";
 
 function ProfilePage() {
    const { user } = useContext(AuthContext);
-   const { data, error } = useFrappeGetDoc("Student", user);
+   const { data, isloading } = useFrappeGetDoc("Student", user);
+   const { updateDoc } = useFrappeUpdateDoc();
+   const { upload } = useFrappeFileUpload();
 
    const [isEditing, setIsEditing] = useState(false);
 
    const [isUploaded, setIsUploaded] = useState(false);
    const [isHovering, setIsHovering] = useState(false);
-   const [formData, setFormData] = useState({
-      full_name: "",
-      email: "",
-      phone_number: "",
-      nationality: "",
-      gender: "",
-   });
+   const [document_table, setDocument_table] = useState([]);
+   const [formData, setFormData] = useState({});
 
-   const getBorderClass = () => {
-      if (isUploaded) {
+   const profilePicDoc = document_table.find(
+      (doc) => doc.document_name === "profile_pic"
+   );
+   const signatureDoc = document_table.find(
+      (doc) => doc.document_name === "signature"
+   );
+   const tenthCertificateDoc = document_table.find(
+      (doc) => doc.document_name === "tenth_school_certificate"
+   );
+   const twelfthCertificateDoc = document_table.find(
+      (doc) => doc.document_name === "twelfth_school_certificate"
+   );
+
+   const getBorderClass = (docName) => {
+      if (docName) {
          return isHovering ? "border-red-300" : "border-green-300";
       }
       return "border-dashed border-gray-300 hover:border-orange-500";
@@ -39,11 +54,91 @@ function ProfilePage() {
       setFormData((prev) => ({ ...prev, [name]: value }));
    };
 
-   const handleUpload = (e) => {
-      const file = e.target.files[0];
-      console.log(file);
-      
+   const handleUpload = async (e) => {
+      if (e.target.files && e.target.files[0]) {
+         const file = e.target.files[0];
+
+         try {
+            await upload(file, {
+               doctype: "Student", // attach to Student
+               docname: user, // e.g., "STUD-0001"
+               isPrivate: 1,
+            })
+               .then((res) => {
+                  const fileUrl = res?.file_url;
+
+                  const documentToUpload = {
+                     document_name: e.target.name || file.name,
+                     document_file: fileUrl,
+                  };
+
+                  document_table.push(documentToUpload);
+
+                  updateDoc("Student", user, {
+                     document_table,
+                  })
+                     .then(() => {
+                        toast.success("Uploaded successfully");
+                     })
+                     .catch((err) => {
+                        toast.warning("Upload failed. Try again later");
+                        console.error(err);
+                     });
+               })
+               .catch((err) => {
+                  toast.warning("Upload failed. Try again later");
+                  console.error(err);
+               });
+         } catch (err) {
+            console.error("Upload failed:", err);
+         }
+      }
    };
+
+   const handleRemoveDoc = (name) => {
+      const updatedDocuments = data.document_table.filter(
+         (doc) => doc.document_name !== name
+      );
+
+      try {
+         updateDoc("Student", user, { document_table: updatedDocuments })
+            .then((res) => console.log(res))
+            .catch((err) => console.error(err));
+      } catch (error) {
+         console.error(error);
+      }
+   };
+
+   const handleUpdate = () => {
+      if (isEditing) {
+         if (formData != data) {
+            try {
+               updateDoc("Student", user, formData)
+                  .then(() => {
+                     toast.success("Profile updated successfully");
+                  })
+                  .catch((err) => {
+                     toast.error(
+                        "Some internal error while updating. Please try again later"
+                     );
+                     console.error(err);
+                  });
+            } catch (error) {
+               console.error(error);
+            }
+         }
+      } else {
+         toast.error("Nothing to save");
+      }
+      setIsEditing(!isEditing);
+   };
+
+   useEffect(() => {
+      if (data) {
+         setFormData(data);
+         setDocument_table(data.document_table);
+      }
+   }, [data, isloading]);
 
    return (
       <div className="min-h-screen bg-white px-6 py-8 md:px-16 w-3/4 mx-auto mt-15">
@@ -55,7 +150,7 @@ function ProfilePage() {
                <p className="text-sm text-gray-500">{today}</p>
             </div>
             <button
-               onClick={() => setIsEditing(!isEditing)}
+               onClick={handleUpdate}
                className="text-white bg-[#FF7043]   hover:bg-orange-600 focus:outline-none focus:ring-4  font-medium rounded-full text-sm px-8  py-3 text-center me-2 mb-2"
             >
                {isEditing ? "Save" : "Edit"}
@@ -86,7 +181,9 @@ function ProfilePage() {
                <input
                   type="text"
                   disabled={!isEditing}
-                  value={data?.full_name || ""}
+                  name="full_name"
+                  value={formData?.full_name || ""}
+                  onChange={getFormData}
                   placeholder="Your First Name"
                   className="w-full bg-gray-100 rounded-lg px-4 py-2 text-sm outline-none disabled:opacity-70"
                />
@@ -99,7 +196,8 @@ function ProfilePage() {
                <input
                   type="text"
                   disabled={!isEditing}
-                  value={data?.email || ""}
+                  name="email"
+                  value={formData?.email || ""}
                   placeholder="Enter your email"
                   className="w-full bg-gray-100 rounded-lg px-4 py-2 text-sm outline-none disabled:opacity-70"
                />
@@ -111,7 +209,8 @@ function ProfilePage() {
                </label>
                <select
                   disabled={!isEditing}
-                  value={data?.gender || ""}
+                  name="gender"
+                  value={formData?.gender || ""}
                   className="w-full bg-gray-100 rounded-lg px-4 py-2 text-sm outline-none disabled:opacity-70"
                >
                   <option hidden value="">
@@ -130,7 +229,8 @@ function ProfilePage() {
                <input
                   type="text"
                   disabled={!isEditing}
-                  value={data?.nationality || ""}
+                  name="nationality"
+                  value={formData?.nationality || ""}
                   onChange={getFormData}
                   placeholder="Your First Name"
                   className="w-full bg-gray-100 rounded-lg px-4 py-2 text-sm outline-none disabled:opacity-70"
@@ -144,7 +244,8 @@ function ProfilePage() {
                <input
                   type="text"
                   disabled={!isEditing}
-                  value={data?.phone_number || ""}
+                  name="phone_number"
+                  value={formData?.phone_number || ""}
                   placeholder="Your Phone Number"
                   className="w-full bg-gray-100 rounded-lg px-4 py-2 text-sm outline-none disabled:opacity-70"
                />
@@ -156,6 +257,7 @@ function ProfilePage() {
                </label>
                <input
                   type="email"
+                  name="email"
                   disabled={!isEditing}
                   placeholder="Your First Name"
                   className="w-full bg-gray-100 rounded-lg px-4 py-2 text-sm outline-none disabled:opacity-70"
@@ -168,31 +270,96 @@ function ProfilePage() {
             </label>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                <label
-                  className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center cursor-pointer hover:border-orange-500"
+                  htmlFor="tenth_school_certificate"
+                  className={`border-2 rounded-lg p-4 text-center cursor-pointer transition-colors duration-300 ${getBorderClass(
+                     tenthCertificateDoc
+                  )}`}
+                  onClick={() => {
+                     if (tenthCertificateDoc && isHovering) {
+                        handleRemoveDoc("tenth_school_certificate"); // delete file
+                     }
+                  }}
+                  onMouseEnter={() => setIsHovering(true)}
+                  onMouseLeave={() => setIsHovering(false)}
                >
-                  <p className="text-sm text-gray-600">10th Marksheet</p>
+                  <div className="flex items-center justify-center gap-1 text-sm">
+                     {tenthCertificateDoc ? (
+                        isHovering ? (
+                           <span
+                              className="flex items-center text-red-500 gap-1"
+                              onClick={handleRemoveDoc}
+                           >
+                              <DeleteIcon fontSize="small" />
+                              Remove
+                           </span>
+                        ) : (
+                           <span className="flex items-center text-gray-600 gap-1">
+                              10th Certificate
+                              <CheckCircleIcon
+                                 className="text-green-500"
+                                 fontSize="small"
+                              />
+                           </span>
+                        )
+                     ) : (
+                        <>
+                           <span className="text-gray-600">
+                              10th Certificate
+                           </span>
+                           <input
+                              type="file"
+                              name="tenth_school_certificate"
+                              id="tenth_school_certificate"
+                              onChange={handleUpload}
+                              style={{ display: "none" }}
+                           />
+                        </>
+                     )}
+                  </div>
+               </label>
+               <label className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center cursor-pointer hover:border-orange-500">
+                  <p className="text-sm text-gray-600">12th Marksheet</p>
                   <input
                      type="file"
-                     name="10th_marksheet"
+                     name="twelfth_school_certificate"
+                     id="twelfth_school_certificate"
                      onChange={handleUpload}
                      style={{ display: "none" }}
                   />
                </label>
-               <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center cursor-pointer hover:border-orange-500">
-                  <p className="text-sm text-gray-600">12th Marksheet</p>
-               </div>
-               <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center cursor-pointer hover:border-orange-500">
+               <label className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center cursor-pointer hover:border-orange-500">
                   <p className="text-sm text-gray-600">
                      Transfer Certificate (TC)
                   </p>
-               </div>
-               <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center cursor-pointer hover:border-orange-500">
+                  <input
+                     type="file"
+                     name="transfer_certificate"
+                     id="transfer_certificate"
+                     onChange={handleUpload}
+                     style={{ display: "none" }}
+                  />
+               </label>
+               <label className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center cursor-pointer hover:border-orange-500">
                   <p className="text-sm text-gray-600">Community Certificate</p>
-               </div>
-               <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center cursor-pointer hover:border-orange-500">
+                  <input
+                     type="file"
+                     name="community_certificate"
+                     id="community_certificate"
+                     onChange={handleUpload}
+                     style={{ display: "none" }}
+                  />
+               </label>
+               <label className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center cursor-pointer hover:border-orange-500">
                   <p className="text-sm text-gray-600">Passport Size Photo</p>
-               </div>
-               <div
+                  <input
+                     type="file"
+                     name="profile_photo"
+                     id="profile_photo"
+                     onChange={handleUpload}
+                     style={{ display: "none" }}
+                  />
+               </label>
+               <label
                   className={`border-2 rounded-lg p-4 text-center cursor-pointer transition-colors duration-300 ${getBorderClass()}`}
                   onClick={() => {
                      if (isUploaded && isHovering) {
@@ -221,12 +388,21 @@ function ProfilePage() {
                            </span>
                         )
                      ) : (
-                        <span className="text-gray-600">
-                           Aadhaar / ID Proof
-                        </span>
+                        <>
+                           <span className="text-gray-600">
+                              Aadhaar / ID Proof
+                           </span>
+                        </>
                      )}
+                     <input
+                        type="file"
+                        name="aadhaar_card"
+                        id="aadhaar_card"
+                        onChange={handleUpload}
+                        style={{ display: "none" }}
+                     />
                   </div>
-               </div>
+               </label>
             </div>
          </div>
       </div>

@@ -62,9 +62,9 @@ function App() {
                <Route path="/privacy-policy" element={<Privacy />} />
                <Route path="/college-page" element={<CollegePage />} />
                <Route path="/courses-page" element={<CourseList />} />
-               <Route path="/course" element={<CoursePage />} />
+               <Route path="/course/:id" element={<CoursePage />} />
                <Route path="/profile" element={<ProfilePage />} />
-               <Route path="/student-form" element={<StudentForm />} />
+               <Route path="/application-form/:id" element={<StudentForm />} />
                <Route path="/saved-course" element={<SavedCourse />} />
                <Route path="/faq" element={<Faq />} />
                <Route path="*" element={<PageNotFound />} />
