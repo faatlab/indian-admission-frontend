@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/16/solid";
 
 import axios from "axios";
-import { useFrappeCreateDoc, useFrappeUpdateDoc } from "frappe-react-sdk";
+import { useFrappeUpdateDoc } from "frappe-react-sdk";
 import {
    api_key,
    api_secret,
@@ -79,7 +79,6 @@ function ForgotPassword() {
                      accepted: false,
                   });
                }
-               console.log(res);
             } catch (err) {
                console.error(err);
             }
@@ -130,7 +129,7 @@ function ForgotPassword() {
          toast.error("Passwords does not match");
       } else {
          await updateDoc("Student", user, { password })
-            .then((res) => console.log(res))
+            .then(() => toast.success("Password has been updated succesfully"))
             .catch((err) => console.error(err));
       }
    };
@@ -140,7 +139,6 @@ function ForgotPassword() {
          const timer = setTimeout(() => {
             setCounter(counter - 1);
          }, 1000);
-         console.log(counter);
          return () => clearTimeout(timer);
       } else {
          setIsResend(true);
@@ -157,7 +155,7 @@ function ForgotPassword() {
                }}
             >
                {/* Left side - hidden on mobile */}
-               <div className="hidden md:flex w-1/2 flex-col justify-center h-full text-white ps-30">
+               <div className="md:flex lg:w-1/2 flex-col justify-center h-full text-white lg:ps-30 pt-20 px-8">
                   <h1 className="text-5xl font-bold mb-4">
                      Start your future with the right education
                   </h1>

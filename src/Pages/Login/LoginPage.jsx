@@ -70,9 +70,9 @@ function LoginPage() {
             }}
          >
             {/* Left side - hidden on mobile */}
-            <div className="hidden md:flex w-1/2 flex-col justify-center h-full text-white ps-30">
-               <h1 className="text-5xl w-full font-bold mb-4 bg">
-                  " The future belongs to those who believe in the beauty of their dreams."
+            <div className="md:flex lg:w-1/2 flex-col justify-center h-full text-white lg:ps-30 py-20 px-8">
+               <h1 className="text-3xl lg:text-5xl w-full font-bold mb-4 bg">
+                  The future belongs to those who believe in the beauty of their dreams.
                </h1>
                <p className="text-lg">
                   — Eleanor Roosevelt
@@ -80,7 +80,7 @@ function LoginPage() {
             </div>
 
             {/* Right side with login form */}
-            <div className="w-full md:w-1/2 flex justify-center">
+            <div className="w-max-sm md:w-1/2 flex justify-center">
                <div className="w-full md:w-3/5 md:ms-24 md:mt-24 mt-10 bg-white flex flex-col justify-center p-6 md:p-8 rounded-t-3xl md:rounded-ss-4xl md:rounded-se-4xl">
                   <h2 className="text-2xl font-semibold mb-2">Welcome back!</h2>
                   <p className="pb-2 mb-4 text-gray-600">

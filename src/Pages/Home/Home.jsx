@@ -4,10 +4,16 @@ import { useNavigate } from "react-router-dom";
 
 import logo from "../../assets/main-logo.svg";
 import hero from "../../assets/hero.jpeg";
-import university1 from "../../assets/university1.svg";
-import university2 from "../../assets/university2.svg";
-import university3 from "../../assets/university3.svg";
-import university4 from "../../assets/university4.svg";
+import amritha from "../../assets/Amrita.png";
+import rajagiri from "../../assets/rajagiri.png";
+import ramaiah from "../../assets/ramaiah.png";
+import manipal from "../../assets/manipal.png";
+import madras from "../../assets/Madras_Christian.png";
+import presidency from "../../assets/presidency.png";
+import jain from "../../assets/jain.png";
+import amity from "../../assets/amity.webp";
+import srm from "../../assets/srm.png";
+import christ from "../../assets/christ_university.png";
 import college from "../../assets/college.svg";
 import done from "../../assets/done.svg";
 import bell from "../../assets/bell.svg";
@@ -184,15 +190,15 @@ function Home() {
          <div>
             {/* hero section */}
             <div className="h-[75vh] relative">
-               <div className="position absolute z-10 h-full w-1/2 flex align-center justify-center gap-6 flex-col ps-20 ">
+               <div className="position absolute z-10 h-full w-full lg:w-1/2 flex align-center justify-center gap-6 flex-col lg:ps-20 px-3 ">
                   <div className="flex-col justify-center items-center">
-                     <h1 className="text-6xl font-black text-white mb-5">
+                     <h1 className="text-5xl lg:text-6xl font-black text-white mb-5">
                         Never stop <br />
                         Dreaming big
                      </h1>
                   </div>
                   <div className="">
-                     <form className="w-11/13 h-16">
+                     <form className="w-full lg:w-11/13 h-16">
                         <label
                            htmlFor="default-search"
                            className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
@@ -200,7 +206,7 @@ function Home() {
                            Search
                         </label>
                         <div className="relative h-full">
-                           <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                           <div className="hidden absolute inset-y-0 start-0 lg:flex items-center ps-3 pointer-events-none">
                               <svg
                                  className="w-4 h-4 text-gray-500 dark:text-gray-400 "
                                  aria-hidden="true"
@@ -223,18 +229,18 @@ function Home() {
                               id="default-search"
                               name="search"
                               onChange={(e) => setSearch(e.target.value)}
-                              className="block w-full h-full ps-10 text-sm text-gray-900 border border-gray-300 rounded-[30px] bg-gray-50 outline-0 "
+                              className="block w-full h-full ps-4 lg:ps-10 pe-48 text-sm text-gray-900 border border-gray-300 rounded-[30px] bg-gray-50 outline-0 "
                               placeholder="Search for a Courses"
                            />
 
-                           <div className="card absolute top-3 right-27 flex justify-content-center">
+                           <div className="card absolute top-3 right-13 lg:right-27 flex justify-content-center">
                               <Dropdown
                                  value={selectedState}
                                  onChange={(e) => setSelectedState(e.value)}
                                  options={indianStates}
                                  optionLabel="name"
                                  placeholder="Select State"
-                                 className="w-50 px-3 py-2 text-lg focus:outline-none focus:ring-0 shadow-none"
+                                 className="w-40 lg:w-50 px-3 py-2 text-lg focus:outline-none focus:ring-0 shadow-none"
                                  virtualScrollerOptions={{ itemSize: 38 }}
                                  panelStyle={{ color: "blue" }}
                                  itemTemplate={(option) => (
@@ -250,9 +256,11 @@ function Home() {
                            <button
                               type="button"
                               onClick={handleSearch}
-                              className="cursor-pointer text-white absolute top-1 right-1 h-14 bg-[#FF671F]  font-medium rounded-[50px] text-sm px-4 w-24"
+                              className="cursor-pointer text-white absolute top-1 right-1 h-14 bg-[#FF671F]  font-medium rounded-[50px] text-sm px-4 lg:w-24"
                            >
-                              Search
+                              <span class="material-symbols-outlined">
+                                 search
+                              </span>
                            </button>
                         </div>
                      </form>
@@ -266,148 +274,112 @@ function Home() {
                   />
                </div>
             </div>
-            <div className="bg-gray-900/60 z-0  h-100 w-250 blur-3xl flex justify-center position absolute top-55 -left-50 right-0 bottom-0"></div>
+            <div className="flex justify-center bg-gray-900/60 blur-3xl z-0 h-60 w-96 lg:h-100 lg:w-250  position absolute top-75 left-5 lg:top-55 lg:-left-50 right-0 bottom-0"></div>
             {/* marque div */}
             <div>
                <div className="w-full max-w-7xl mx-auto px-4 md:px-6">
-                  <div className="mt-5 text-center ">
+                  <div className="mt-3 lg:mt-0 text-center ">
                      <div className="w-full inline-flex  flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
                         <ul
                            x-ref="logos"
                            className="flex items-center justify-center md:justify-start [&_img]:max-w-none marqueeDiv"
                         >
-                           <li className="h-20 text-gray-900 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm p-2 text-center inline-flex items-center dark:focus:ring-gray-500 me-2 mb-2">
+                           <li className="h-18  text-gray-900 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm p-2 text-center inline-flex items-center dark:focus:ring-gray-500 me-2 mb-2">
+                              <img className="h-full p-1" src={amritha} alt="" />
+                           </li>
+                           <li className="h-22 text-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm p-2 text-center inline-flex items-center dark:focus:ring-gray-500 me-2 mb-2">
                               <img
                                  className="h-full p-1"
-                                 src={university1}
+                                 src={rajagiri}
                                  alt=""
                               />
-                              IIT Bombay
+                           </li>
+                           <li className="h-20 gray-900 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm p-2 text-center inline-flex items-center dark:focus:ring-gray-500 me-2 mb-2">
+                              <img
+                                 className="h-full p-1"
+                                 src={ramaiah}
+                                 alt=""
+                              />
                            </li>
                            <li className="h-20 text-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm p-2 text-center inline-flex items-center dark:focus:ring-gray-500 me-2 mb-2">
                               <img
                                  className="h-full p-1"
-                                 src={university2}
+                                 src={manipal}
                                  alt=""
                               />
-                              IIT Madras
+                           </li>
+                           <li className="h-25 text-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm p-2 text-center inline-flex items-center dark:focus:ring-gray-500 me-2 mb-2">
+                              <img className="h-full p-1" src={madras} alt="" />
                            </li>
                            <li className="h-20 text-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm p-2 text-center inline-flex items-center dark:focus:ring-gray-500 me-2 mb-2">
                               <img
                                  className="h-full p-1"
-                                 src={university3}
+                                 src={presidency}
                                  alt=""
                               />
-                              Delhi University
                            </li>
                            <li className="h-20 text-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm p-2 text-center inline-flex items-center dark:focus:ring-gray-500 me-2 mb-2">
-                              <img
-                                 className="h-full p-1"
-                                 src={university4}
-                                 alt=""
-                              />
-                              IIT Kanpur
+                              <img className="h-full p-1" src={jain} alt="" />
+                           </li>
+                           <li className="h-27 text-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm p-2 text-center inline-flex items-center dark:focus:ring-gray-500 me-2 mb-2">
+                              <img className="h-full p-1" src={amity} alt="" />
                            </li>
                            <li className="h-20 text-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm p-2 text-center inline-flex items-center dark:focus:ring-gray-500 me-2 mb-2">
-                              <img
-                                 className="h-full p-1"
-                                 src={university1}
-                                 alt=""
-                              />
-                              IIT Bombay
+                              <img className="h-full p-1" src={srm} alt="" />
                            </li>
-                           <li className="h-20 text-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm p-2 text-center inline-flex items-center dark:focus:ring-gray-500 me-2 mb-2">
-                              <img
-                                 className="h-full p-1"
-                                 src={university2}
-                                 alt=""
-                              />
-                              IIT Madras
-                           </li>
-                           <li className="h-20 text-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm p-2 text-center inline-flex items-center dark:focus:ring-gray-500 me-2 mb-2">
-                              <img
-                                 className="h-full p-1"
-                                 src={university3}
-                                 alt=""
-                              />
-                              IIT Madras
-                           </li>
-                           <li className="h-20 text-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm p-2 text-center inline-flex items-center dark:focus:ring-gray-500 me-2 mb-2">
-                              <img
-                                 className="h-full p-1"
-                                 src={university4}
-                                 alt=""
-                              />
-                              Delhi University
+                           <li className="h-26 text-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm p-2 text-center inline-flex items-center dark:focus:ring-gray-500 me-2 mb-2">
+                              <img className="h-full p-1" src={christ} alt="" />
                            </li>
                         </ul>
                         <ul
                            x-ref="logos"
                            className="flex items-center justify-center md:justify-start [&_img]:max-w-none marqueeDiv"
                         >
-                           <li className="h-20  text-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm p-2 text-center inline-flex items-center dark:focus:ring-gray-500 me-2 mb-2">
+                           <li className="h-18 text-gray-900 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm p-2 text-center inline-flex items-center dark:focus:ring-gray-500 me-2 mb-2">
+                              <img className="h-full p-1" src={amritha} alt="" />
+                           </li>
+                           <li className="h-22 text-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm p-2 text-center inline-flex items-center dark:focus:ring-gray-500 me-2 mb-2">
                               <img
-                                 className="h-full p-1 "
-                                 src={university1}
+                                 className="h-full p-1"
+                                 src={rajagiri}
                                  alt=""
                               />
-                              IIT Bombay
+                           </li>
+                           <li className="h-20 gray-900 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm p-2 text-center inline-flex items-center dark:focus:ring-gray-500 me-2 mb-2">
+                              <img
+                                 className="h-full p-1"
+                                 src={ramaiah}
+                                 alt=""
+                              />
                            </li>
                            <li className="h-20 text-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm p-2 text-center inline-flex items-center dark:focus:ring-gray-500 me-2 mb-2">
                               <img
                                  className="h-full p-1"
-                                 src={university2}
+                                 src={manipal}
                                  alt=""
                               />
-                              IIT Bombay
+                           </li>
+                           <li className="h-25 text-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm p-2 text-center inline-flex items-center dark:focus:ring-gray-500 me-2 mb-2">
+                              <img className="h-full p-1" src={madras} alt="" />
                            </li>
                            <li className="h-20 text-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm p-2 text-center inline-flex items-center dark:focus:ring-gray-500 me-2 mb-2">
                               <img
                                  className="h-full p-1"
-                                 src={university3}
+                                 src={presidency}
                                  alt=""
                               />
-                              IIT Bombay
                            </li>
                            <li className="h-20 text-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm p-2 text-center inline-flex items-center dark:focus:ring-gray-500 me-2 mb-2">
-                              <img
-                                 className="h-full p-1"
-                                 src={university4}
-                                 alt=""
-                              />
-                              IIT Bombay
+                              <img className="h-full p-1" src={jain} alt="" />
+                           </li>
+                           <li className="h-27 text-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm p-2 text-center inline-flex items-center dark:focus:ring-gray-500 me-2 mb-2">
+                              <img className="h-full p-1" src={amity} alt="" />
                            </li>
                            <li className="h-20 text-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm p-2 text-center inline-flex items-center dark:focus:ring-gray-500 me-2 mb-2">
-                              <img
-                                 className="h-full p-1"
-                                 src={university1}
-                                 alt=""
-                              />
-                              IIT Bombay
+                              <img className="h-full p-1" src={srm} alt="" />
                            </li>
-                           <li className="h-20 text-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm p-2 text-center inline-flex items-center dark:focus:ring-gray-500 me-2 mb-2">
-                              <img
-                                 className="h-full p-1"
-                                 src={university2}
-                                 alt=""
-                              />
-                              IIT Bombay
-                           </li>
-                           <li className="h-20 text-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm p-2 text-center inline-flex items-center dark:focus:ring-gray-500 me-2 mb-2">
-                              <img
-                                 className="h-full p-1"
-                                 src={university3}
-                                 alt=""
-                              />
-                              IIT Bombay
-                           </li>
-                           <li className="h-20 text-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm p-2 text-center inline-flex items-center dark:focus:ring-gray-500 me-2 mb-2">
-                              <img
-                                 className="h-full p-1"
-                                 src={university4}
-                                 alt=""
-                              />
-                              IIT Bombay
+                           <li className="h-26 text-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm p-2 text-center inline-flex items-center dark:focus:ring-gray-500 me-2 mb-2">
+                              <img className="h-full p-1" src={christ} alt="" />
                            </li>
                         </ul>
                      </div>
@@ -418,17 +390,21 @@ function Home() {
             <div>
                <div
                   data-aos="fade-up"
-                  className="flex justify-between items-center mx-30 my-20"
+                  className="flex justify-between items-center mx-10 lg:mx-30 my-20"
                >
-                  <h2 className="text-3xl font-black text-[#535353]">
+                  <h2 className="text-2xl lg:text-3xl font-black text-[#535353]">
                      Major Colleges
                   </h2>{" "}
                </div>
-               <div data-aos="fade-up" className="flex justify-center gap-12">
+               <div
+                  data-aos="fade-up"
+                  className="flex flex-wrap justify-center gap-12"
+               >
                   {/* Card 1 */}
                   {majorColleges.map((majorCollege) => (
                      <div
                         key={majorCollege.col_id}
+                        data-aos="fade-up"
                         className=" bg-white shadow-lg rounded-[28px] overflow-hidden p-5 max-w-sm w-[18rem] h-[22rem] hover:shadow-xl hover:scale-[1.02] transition-all duration-200 cursor-pointer"
                      >
                         <div className="p-4 h-30">
@@ -461,10 +437,10 @@ function Home() {
             {/* path section  */}
             <div data-aos="fade-down">
                <div data-aos="zoom-in" className="text-center mt-20">
-                  <h1 className="text-4xl text-[#486284]">
+                  <h1 className="text-3xl lg:text-4xl text-[#486284] px-6 lg:px-0">
                      Your Step-by-Step Guide to the Indian Admission Process
                   </h1>
-                  <p className="mt-5 text-gray-500 w-1/2 mx-auto">
+                  <p className="mt-5 text-gray-500 lg:w-1/2 mx-10 lg:mx-auto">
                      Navigate the Indian education system with ease. From
                      selecting the right university and course to application
                      submission, entrance exams, and final enrollment—this guide
@@ -494,9 +470,7 @@ function Home() {
                   </div>
 
                   <svg
-                     className="absolute top-10 left-95"
-                     width="480"
-                     height="134"
+                     className="w-[300px] h-[86px] lg:w-[480px] lg:h-[134px] transform rotate-90 lg:rotate-0 absolute top-108 left-10 lg:top-10 lg:left-95"
                      viewBox="0 0 696 134"
                      fill="none"
                      xmlns="http://www.w3.org/2000/svg"
@@ -521,9 +495,7 @@ function Home() {
                   </div>
 
                   <svg
-                     className="absolute top-10 right-45"
-                     width="480"
-                     height="134"
+                     className="w-[300px] h-[86px] lg:w-[480px] lg:h-[134px] transform rotate-90 lg:rotate-0 absolute bottom-74 left-10 lg:top-10 lg:right-45"
                      viewBox="0 0 696 134"
                      fill="none"
                      xmlns="http://www.w3.org/2000/svg"
@@ -551,8 +523,8 @@ function Home() {
             <div data-aos="fade-up">
                <div>
                   {/* trending courses */}
-                  <div className="flex justify-between items-center mx-30 my-20">
-                     <h2 className="text-3xl font-black text-[#535353]">
+                  <div className="flex justify-between items-center mx-5 lg:mx-30 my-20">
+                     <h2 className="text-2xl lg:text-3xl font-black text-[#535353]">
                         Trending Courses
                      </h2>{" "}
                      <button
@@ -567,7 +539,7 @@ function Home() {
                <div className=" flex flex-row items-center gap-6 justify-center flex-wrap mt-3 mb-20">
                   {/* Card 1 */}
                   {trendingCourses.map((trendingCourse) => (
-                     <div className="flex w-full max-w-md rounded-xl overflow-hidden shadow-md bg-white gap-2 hover:shadow-xl hover:scale-[1.02] transition-all duration-200 cursor-pointer">
+                     <div className="flex w-full max-w-sm lg:max-w-md rounded-xl overflow-hidden shadow-md bg-white gap-2 hover:shadow-xl hover:scale-[1.02] transition-all duration-200 cursor-pointer">
                         <div className="flex flex-col justify-between p-4 flex-1">
                            <h2 className="text-lg font-semibold text-gray-800 mb-3">
                               {trendingCourse.course_name}
@@ -592,15 +564,15 @@ function Home() {
             <div>
                <section className="relative py-20 bg-white text-center overflow-hidden">
                   {/* Decorative Elements */}
-                  <div data-aos="zoom-in-right">
+                  <div data-aos="zoom-in-right" className="hidden lg:block">
                      <img
                         src={down}
                         alt="Arrow"
                         className="absolute top-40 w-30 left-10"
                      />
                   </div>
-                  <div className="bg-[#FF7526]/20 z-0  h-100 w-150 blur-3xl flex justify-center position absolute  -left-50 right-0 "></div>
-                  <div className="bg-[#FF7526]/20 z-0  h-100 w-150 blur-3xl flex justify-center position absolute  -right-50 "></div>
+                  <div className="bg-[#FF7526]/20 z-0 h-[80vh] lg:h-100 w-150 blur-3xl flex justify-center position absolute top-60 lg:top-20 -left-50 right-0 "></div>
+                  <div className="bg-[#FF7526]/20 z-0 h-[80vh] lg:h-100 w-150 blur-3xl flex justify-center position absolute top-60 lg:top-20 -right-50 "></div>
 
                   <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">
                      What Student’s Say
@@ -666,7 +638,7 @@ function Home() {
                   </div>
 
                   {/* Planet Decorative Element */}
-                  <div data-aos="zoom-in-left">
+                  <div data-aos="zoom-in-left" className="hidden lg:block">
                      <img
                         src={mars}
                         alt="Planet"

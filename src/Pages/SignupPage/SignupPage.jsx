@@ -69,9 +69,9 @@ function SignupPage() {
             }}
          >
             {/* Left side - HIDDEN on mobile */}
-            <div className="hidden md:flex w-1/2 flex-col justify-center h-full text-white ps-30">
-               <h1 className="text-5xl font-bold mb-4">
-                  " Small steps in the right direction lead to big results."
+            <div className="md:flex lg:w-1/2 flex-col justify-center h-full text-white lg:ps-30 pt-20 px-8">
+               <h1 className="text-3xl lg:text-5xl font-bold mb-4">
+                  Small steps in the right direction lead to big results.
                </h1>
                <p className="text-lg text-slate-200">
                   We're here to make admissions simple, fast, and stress-free.

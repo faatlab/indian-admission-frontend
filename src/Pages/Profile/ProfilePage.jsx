@@ -95,8 +95,6 @@ function ProfilePage() {
                isPrivate: 1,
             })
                .then((res) => {
-                  console.log(res);
-
                   const documentToUpload = {
                      document_name: e.target.name || file.name,
                      document_file: res.name,
@@ -145,7 +143,7 @@ function ProfilePage() {
                   })
                   .catch((err) => console.error(err));
             })
-            .catch((err) => console.log(err));
+            .catch((err) => console.error(err));
       } catch (error) {
          console.error(error);
       }

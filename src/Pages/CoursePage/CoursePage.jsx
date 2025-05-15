@@ -57,12 +57,12 @@ function CoursePage() {
 
    return (
       <div>
-         <div className="flex justify-between items-center mx-30 my-20 ">
-            <h2 className="text-3xl font-black text-[#535353]">About Course</h2>{" "}
+         <div className="flex justify-between items-center mx-10 lg:mx-30 my-10 lg:my-20 ">
+            <h2 className="text-2xl lg:text-3xl font-black text-[#535353]">About Course</h2>{" "}
          </div>
          {/* apply_now_section */}
          <div className="flex justify-center w-full">
-            <div className="max-w-3xl w-full">
+            <div className="max-w-sm lg:max-w-3xl w-full">
                {/* Top card: title, duration, stars, image */}
                <div className="relative md:flex bg-gray-100 p-2 rounded-t-xl">
                   <div className="flex-1 ms-5">

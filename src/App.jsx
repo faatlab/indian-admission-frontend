@@ -82,9 +82,9 @@ function App() {
                <Route
                   path="/application-form/:id"
                   element={
-                     <ProtectedRoute>
+                    
                         <StudentForm />
-                     </ProtectedRoute>
+                    
                   }
                />
                <Route

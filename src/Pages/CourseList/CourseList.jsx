@@ -64,32 +64,36 @@ function CourseList() {
 
    const handleSaveCourse = (courseData) => {
       try {
-         const saved_courses = Array.isArray(data?.saved_courses)
-            ? [...data.saved_courses]
-            : [];
+         if (user) {
+            const saved_courses = Array.isArray(data?.saved_courses)
+               ? [...data.saved_courses]
+               : [];
 
-         const isSaved = saved_courses.filter(
-            (course) => course.course_id === courseData.course_id
-         );
+            const isSaved = saved_courses.filter(
+               (course) => course.course_id === courseData.course_id
+            );
 
-         if (isSaved.length < 1) {
-            saved_courses.push({
-               course_id: courseData.course_id,
-               course_name: courseData.course_name,
-               college_id: courseData.college_id,
-               college_name: courseData.college_name,
-            });
-            updateDoc("Student", user, { saved_courses })
-               .then(() => {
-                  mutate();
-                  toast.success("Course has been saved");
-               })
-               .catch((err) => {
-                  toast.info("Course was not saved, please try again later");
-                  console.error(err);
+            if (isSaved.length < 1) {
+               saved_courses.push({
+                  course_id: courseData.course_id,
+                  course_name: courseData.course_name,
+                  college_id: courseData.college_id,
+                  college_name: courseData.college_name,
                });
+               updateDoc("Student", user, { saved_courses })
+                  .then(() => {
+                     mutate();
+                     toast.success("Course has been saved");
+                  })
+                  .catch((err) => {
+                     toast.info("Course was not saved, please try again later");
+                     console.error(err);
+                  });
+            } else {
+               toast.info("You have already saved this course");
+            }
          } else {
-            toast.info("You have already saved this course");
+            toast.error("You have to log in to save courses");
          }
       } catch (error) {
          toast.info("Some internal error, please try again later");
@@ -107,13 +111,13 @@ function CourseList() {
 
    return (
       <div>
-         <div className="flex justify-between items-center mx-20 my-20">
+         <div className="flex justify-between items-center mx-5 lg:mx-20 my-10 lg:my-20">
             <h2 className="text-3xl font-black text-[#535353]">
                Browse Through Courses
             </h2>{" "}
          </div>
          {search_query && selected_state && (
-            <div className="searchInfo mx-20 mb-10">
+            <div className="searchInfo mx-10 lg:mx-20 mb-10">
                <p className="text-xl">
                   Showing results for "
                   <span className="text-orange-400 font-black">
@@ -134,7 +138,7 @@ function CourseList() {
                   {courses.map((course) => (
                      <div
                         key={course.course_id}
-                        className="flex w-full max-w-md rounded-xl overflow-hidden shadow-md bg-white gap-2"
+                        className="flex w-full max-w-sm lg:max-w-md rounded-xl overflow-hidden shadow-md bg-white gap-2"
                      >
                         <div
                            className="flex flex-col justify-between p-4 flex-1"
@@ -157,17 +161,22 @@ function CourseList() {
                         <div className="flex items-end">
                            <span
                               className="pb-3 w-full text-gray-600 text-lg cursor-pointer"
-                              
                               onClick={() => handleSaveCourse(course)}
                            >
                               {data?.saved_courses?.filter(
                                  (cou) => cou.course_id === course.course_id
                               ).length > 0 ? (
-                                 <span class="material-symbols-outlined" style={{ fontSize: '32px' }}>
+                                 <span
+                                    class="material-symbols-outlined"
+                                    style={{ fontSize: "32px" }}
+                                 >
                                     bookmark_check
                                  </span>
                               ) : (
-                                <span class="material-symbols-outlined" style={{ fontSize: '32px' }}>
+                                 <span
+                                    class="material-symbols-outlined"
+                                    style={{ fontSize: "32px" }}
+                                 >
                                     bookmark
                                  </span>
                               )}
@@ -210,7 +219,7 @@ function CourseList() {
          ) : (
             <>
                <div className=" flex flex-row items-center gap-6 justify-center flex-wrap mt-3 mb-20">
-                  <p className="text-lg text-gray-500">
+                  <p className="text-lg text-gray-500 mx-10">
                      Sorry but we currently do not have the course you are
                      looking for
                   </p>

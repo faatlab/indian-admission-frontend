@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import saved from "../../assets/saved.svg";
 
 import course1 from "../../assets/course1.svg";
 import { AuthContext } from "../../context/AuthProvider";
