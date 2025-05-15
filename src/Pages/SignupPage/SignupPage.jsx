@@ -71,11 +71,11 @@ function SignupPage() {
             {/* Left side - HIDDEN on mobile */}
             <div className="hidden md:flex w-1/2 max-w-md flex-col justify-center h-full text-white">
                <h1 className="text-5xl font-bold mb-4">
-                  Building the Future...
+                  " Small steps in the right direction lead to big results."
                </h1>
-               <p className="text-lg">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+               <p className="text-lg text-slate-200">
+                  We're here to make admissions simple, fast, and stress-free.
+                  Log in and take the first step toward the career you deserve.
                </p>
             </div>
 

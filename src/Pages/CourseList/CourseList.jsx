@@ -13,18 +13,6 @@ function CourseList() {
    const [courses, setCourses] = useState([]);
    const [pageNum, setPageNum] = useState(1);
    const navigate = useNavigate();
-   const totalStars = 5;
-   const renderStars = (rating) =>
-      Array.from({ length: totalStars }).map((_, i) => (
-         <span
-            key={i}
-            className={`text-sm ${
-               i < rating ? "text-yellow-400" : "text-gray-300"
-            }`}
-         >
-            ★
-         </span>
-      ));
 
    const [searchParams] = useSearchParams();
 
@@ -69,6 +57,10 @@ function CourseList() {
       }
    };
 
+   const handleSaveCourse = () =>{
+
+   }
+
    useEffect(() => {
       if (!search_query && !selected_state) {
          getAllCourses();
@@ -87,7 +79,7 @@ function CourseList() {
          {search_query && selected_state && (
             <div className="searchInfo mx-20 mb-10">
                <p className="text-xl">
-                  Showing for "
+                  Showing results for "
                   <span className="text-orange-400 font-black">
                      {search_query}
                   </span>
@@ -99,62 +91,78 @@ function CourseList() {
                </p>
             </div>
          )}
-         <div className=" flex flex-row items-center gap-6 justify-center flex-wrap mt-3 mb-20">
-            {/* Card 1 */}
-            {courses.map((course) => (
-               <div
-                  key={course.course_id}
-                  onClick={() =>
-                     navigate(
-                        `/course/${course.course_name}?course_id=${course.course_id}`
-                     )
-                  }
-                  className="flex w-full max-w-md rounded-xl overflow-hidden shadow-md bg-white gap-2"
-               >
-                  <div className="flex flex-col justify-between p-4 flex-1">
-                     <h2 className="text-lg font-semibold text-gray-800 mb-3">
-                        {course.course_name}
-                     </h2>
-                     <h4 className="text-sm text-gray-600">
-                        {course.college_name}
-                     </h4>
-                     <div className="flex items-center space-x-1 opacity-50 text-xs">
-                        {course.course_in_state}
-                        <span className="ml-auto text-gray-600 text-lg cursor-pointer">
-                           <img src={save} alt="" />
-                        </span>
+         {/* Card 1 */}
+         {courses.length > 1 ? (
+            <>
+               <div className=" flex flex-row items-center gap-6 justify-center flex-wrap mt-3 mb-20">
+                  {courses.map((course) => (
+                     <div
+                        key={course.course_id}
+                        onClick={() =>
+                           navigate(
+                              `/course/${course.course_name}?course_id=${course.course_id}`
+                           )
+                        }
+                        className="flex w-full max-w-md rounded-xl overflow-hidden shadow-md bg-white gap-2"
+                     >
+                        <div className="flex flex-col justify-between p-4 flex-1">
+                           <h2 className="text-lg font-semibold text-gray-800 mb-3">
+                              {course.course_name}
+                           </h2>
+                           <h4 className="text-sm text-gray-600">
+                              {course.college_name}
+                           </h4>
+                           <div className="flex items-center space-x-1 opacity-50 text-xs">
+                              {course.course_in_state}
+                              <span className="ml-auto text-gray-600 text-lg cursor-pointer" onClick={handleSaveCourse(course.course_id)}>
+                                 <img src={save} alt="" />
+                              </span>
+                           </div>
+                        </div>
+                        <img
+                           src={course1}
+                           alt="BCA"
+                           className="w-40 object-cover"
+                        />
                      </div>
-                  </div>
-                  <img src={course1} alt="BCA" className="w-40 object-cover" />
+                  ))}
                </div>
-            ))}
-         </div>
-
-         <div className="w-full flex justify-center mt-10 mb-17">
-            <div className="flex space-x-4">
-               <button
-                  disabled={pageNum > 1 ? false : true}
-                  onClick={() => {
-                     if (pageNum > 1) {
-                        setPageNum(pageNum - 1);
-                        window.scrollTo({ top: 0, behavior: "smooth" });
-                     }
-                  }}
-                  className="px-6 py-2 rounded-full border border-gray-300 text-gray-600 hover:bg-gray-100 transition cursor-pointer"
-               >
-                  Previous Page
-               </button>
-               <button
-                  onClick={() => {
-                     setPageNum(pageNum + 1);
-                     window.scrollTo({ top: 0, behavior: "smooth" });
-                  }}
-                  className="px-6 py-2 rounded-full bg-orange-500 text-white hover:bg-orange-600 transition cursor-pointer"
-               >
-                  Next Page
-               </button>
-            </div>
-         </div>
+               <div className="w-full flex justify-center mt-10 mb-17">
+                  <div className="flex space-x-4">
+                     <button
+                        disabled={pageNum > 1 ? false : true}
+                        onClick={() => {
+                           if (pageNum > 1) {
+                              setPageNum(pageNum - 1);
+                              window.scrollTo({ top: 0, behavior: "smooth" });
+                           }
+                        }}
+                        className="px-6 py-2 rounded-full border border-gray-300 text-gray-600 hover:bg-gray-100 transition cursor-pointer"
+                     >
+                        Previous Page
+                     </button>
+                     <button
+                        onClick={() => {
+                           setPageNum(pageNum + 1);
+                           window.scrollTo({ top: 0, behavior: "smooth" });
+                        }}
+                        className="px-6 py-2 rounded-full bg-orange-500 text-white hover:bg-orange-600 transition cursor-pointer"
+                     >
+                        Next Page
+                     </button>
+                  </div>
+               </div>
+            </>
+         ) : (
+            <>
+               <div className=" flex flex-row items-center gap-6 justify-center flex-wrap mt-3 mb-20">
+                  <p className="text-lg text-gray-500">
+                     Sorry but we currently do not have the course you are
+                     looking for
+                  </p>
+               </div>
+            </>
+         )}
       </div>
    );
 }

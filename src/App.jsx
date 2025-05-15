@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
 import FooterComponent from "./components/FooterComponent/FooterComponent";
 import Home from "./Pages/Home/Home";
@@ -17,12 +17,14 @@ import StudentForm from "./Pages/StudentForm/StudentForm";
 import { FrappeProvider } from "frappe-react-sdk";
 import { toast, Toaster } from "sonner";
 import Faq from "./Pages/Faq/faq";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { api_key, api_secret, frappe_url } from "./constants/globalConstants";
 import { AuthContext } from "./context/AuthProvider";
 import TermsAndConditions from "./Pages/TermsAndConditions/TermsAndConditions";
 import Privacy from "./Pages/Privacy/Privacy";
 import ScrollToTop from "./components/ScrollToTop";
+import NavbarComponent from "./components/NavbarComponent/NavbarComponent";
+import AppliedCourse from "./Pages/AppliedCourse/AppliedCourse";
 
 function ProtectedRoute({ children }) {
    const { isAuthenticated, loading } = useContext(AuthContext);
@@ -37,6 +39,10 @@ function ProtectedRoute({ children }) {
 }
 
 function App() {
+   const location = useLocation();
+
+   const hideNavbarOnRoutes = ["/login", "/signup", "/forgot-password"];
+   const shouldHideNavbar = hideNavbarOnRoutes.includes(location.pathname);
    return (
       <>
          <FrappeProvider
@@ -49,6 +55,7 @@ function App() {
             }}
          >
             <ScrollToTop />
+            {!shouldHideNavbar && <NavbarComponent />}
             <Routes>
                <Route path="/" element={<Home />} />
                <Route path="/login" element={<LoginPage />} />
@@ -60,13 +67,42 @@ function App() {
                   element={<TermsAndConditions />}
                />
                <Route path="/privacy-policy" element={<Privacy />} />
+               <Route path="/faq" element={<Faq />} />
                <Route path="/college-page" element={<CollegePage />} />
                <Route path="/courses-page" element={<CourseList />} />
                <Route path="/course/:id" element={<CoursePage />} />
-               <Route path="/profile" element={<ProfilePage />} />
-               <Route path="/application-form/:id" element={<StudentForm />} />
-               <Route path="/saved-course" element={<SavedCourse />} />
-               <Route path="/faq" element={<Faq />} />
+               <Route
+                  path="/profile"
+                  element={
+                     <ProtectedRoute>
+                        <ProfilePage />
+                     </ProtectedRoute>
+                  }
+               />
+               <Route
+                  path="/application-form/:id"
+                  element={
+                     <ProtectedRoute>
+                        <StudentForm />
+                     </ProtectedRoute>
+                  }
+               />
+               <Route
+                  path="/saved-course"
+                  element={
+                     <ProtectedRoute>
+                        <SavedCourse />
+                     </ProtectedRoute>
+                  }
+               />
+               <Route
+                  path="/applied-course"
+                  element={
+                     <ProtectedRoute>
+                        <AppliedCourse />
+                     </ProtectedRoute>
+                  }
+               />
                <Route path="*" element={<PageNotFound />} />
             </Routes>
             <FooterComponent />

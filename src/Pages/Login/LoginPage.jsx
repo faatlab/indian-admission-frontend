@@ -70,13 +70,12 @@ function LoginPage() {
             }}
          >
             {/* Left side - hidden on mobile */}
-            <div className="hidden md:flex w-1/2 max-w-md flex-col justify-center h-full text-white">
-               <h1 className="text-5xl font-bold mb-4">
-                  Building the Future...
+            <div className="hidden md:flex w-1/2  flex-col justify-center h-full text-white ps-30">
+               <h1 className="text-5xl w-full font-bold mb-4 bg">
+                  " The future belongs to those who believe in the beauty of their dreams."
                </h1>
                <p className="text-lg">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  — Eleanor Roosevelt
                </p>
             </div>
 

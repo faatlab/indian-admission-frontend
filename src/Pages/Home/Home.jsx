@@ -139,7 +139,7 @@ function Home() {
    const handleSearch = () => {
       if (search && selectedState) {
          navigate(
-            `/course-list?search_query=${encodeURIComponent(
+            `/courses-page?search_query=${encodeURIComponent(
                search
             )}&selected_state=${encodeURIComponent(selectedState.name)}`
          );
@@ -182,19 +182,6 @@ function Home() {
    return (
       <>
          <div>
-            <nav>
-               <div className="w-full h-20 flex justify-between items-center bg-white shadow-md">
-                  <img className="w-30 ms-5" src={logo} alt="logo" />
-                  <div className="hidden md:flex gap-5 p-5">
-                     <button
-                        className="cursor-pointer text-white bg-[#FF7043]   hover:bg-orange-600 focus:outline-none focus:ring-4  font-medium rounded-full text-sm px-8  py-3 text-center me-2 mb-2"
-                        onClick={() => navigate("/login")}
-                     >
-                        Log In
-                     </button>
-                  </div>
-               </div>
-            </nav>
             {/* hero section */}
             <div className="h-[75vh] relative">
                <div className="position absolute z-10 h-full w-1/2 flex align-center justify-center gap-6 flex-col ps-20 ">
