@@ -69,7 +69,7 @@ function SignupPage() {
             }}
          >
             {/* Left side - HIDDEN on mobile */}
-            <div className="hidden md:flex w-1/2 max-w-md flex-col justify-center h-full text-white">
+            <div className="hidden md:flex w-1/2 flex-col justify-center h-full text-white ps-30">
                <h1 className="text-5xl font-bold mb-4">
                   " Small steps in the right direction lead to big results."
                </h1>

@@ -227,6 +227,7 @@ function StudentForm() {
             college_name: courseData.college_name,
          });
          updateDoc("Student", user, { applied_courses }).then((res) => {
+            toast.success("You have applied for this course.")
             console.log(res);
          });
       } catch (error) {

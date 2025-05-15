@@ -42,7 +42,7 @@ function AuthProvider({ children }) {
       setUser(null);
       setToken(null);
       setIsAuthenticated(false);
-   };   
+   };
 
    return (
       <AuthContext.Provider

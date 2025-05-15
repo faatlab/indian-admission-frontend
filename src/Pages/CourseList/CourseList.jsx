@@ -1,18 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
 import course1 from "../../assets/course1.svg";
 import course2 from "../../assets/course2.svg";
 import course3 from "../../assets/course3.svg";
 import save from "../../assets/save.svg";
+import saved from "../../assets/saved.svg";
 import axios from "axios";
 import { api_url } from "../../constants/globalConstants";
 import { toast } from "sonner";
+import { AuthContext } from "../../context/AuthProvider";
+import { useFrappeGetDoc, useFrappeUpdateDoc } from "frappe-react-sdk";
 
 function CourseList() {
+   const { user } = useContext(AuthContext);
    const [courses, setCourses] = useState([]);
    const [pageNum, setPageNum] = useState(1);
    const navigate = useNavigate();
+   const { data, mutate } = useFrappeGetDoc("Student", user);
+   const { updateDoc } = useFrappeUpdateDoc();
 
    const [searchParams] = useSearchParams();
 
@@ -45,7 +51,6 @@ function CourseList() {
                page: pageNum,
             },
          });
-         console.log(response);
 
          if (response.status == 200) {
             setCourses(response.data.data);
@@ -57,9 +62,40 @@ function CourseList() {
       }
    };
 
-   const handleSaveCourse = () =>{
+   const handleSaveCourse = (courseData) => {
+      try {
+         const saved_courses = Array.isArray(data?.saved_courses)
+            ? [...data.saved_courses]
+            : [];
 
-   }
+         const isSaved = saved_courses.filter(
+            (course) => course.course_id === courseData.course_id
+         );
+
+         if (isSaved.length < 1) {
+            saved_courses.push({
+               course_id: courseData.course_id,
+               course_name: courseData.course_name,
+               college_id: courseData.college_id,
+               college_name: courseData.college_name,
+            });
+            updateDoc("Student", user, { saved_courses })
+               .then(() => {
+                  mutate();
+                  toast.success("Course has been saved");
+               })
+               .catch((err) => {
+                  toast.info("Course was not saved, please try again later");
+                  console.error(err);
+               });
+         } else {
+            toast.info("You have already saved this course");
+         }
+      } catch (error) {
+         toast.info("Some internal error, please try again later");
+         console.error(error);
+      }
+   };
 
    useEffect(() => {
       if (!search_query && !selected_state) {
@@ -98,14 +134,16 @@ function CourseList() {
                   {courses.map((course) => (
                      <div
                         key={course.course_id}
-                        onClick={() =>
-                           navigate(
-                              `/course/${course.course_name}?course_id=${course.course_id}`
-                           )
-                        }
                         className="flex w-full max-w-md rounded-xl overflow-hidden shadow-md bg-white gap-2"
                      >
-                        <div className="flex flex-col justify-between p-4 flex-1">
+                        <div
+                           className="flex flex-col justify-between p-4 flex-1"
+                           onClick={() =>
+                              navigate(
+                                 `/course/${course.course_name}?course_id=${course.course_id}`
+                              )
+                           }
+                        >
                            <h2 className="text-lg font-semibold text-gray-800 mb-3">
                               {course.course_name}
                            </h2>
@@ -114,10 +152,26 @@ function CourseList() {
                            </h4>
                            <div className="flex items-center space-x-1 opacity-50 text-xs">
                               {course.course_in_state}
-                              <span className="ml-auto text-gray-600 text-lg cursor-pointer" onClick={handleSaveCourse(course.course_id)}>
-                                 <img src={save} alt="" />
-                              </span>
                            </div>
+                        </div>
+                        <div className="flex items-end">
+                           <span
+                              className="pb-3 w-full text-gray-600 text-lg cursor-pointer"
+                              
+                              onClick={() => handleSaveCourse(course)}
+                           >
+                              {data?.saved_courses?.filter(
+                                 (cou) => cou.course_id === course.course_id
+                              ).length > 0 ? (
+                                 <span class="material-symbols-outlined" style={{ fontSize: '32px' }}>
+                                    bookmark_check
+                                 </span>
+                              ) : (
+                                <span class="material-symbols-outlined" style={{ fontSize: '32px' }}>
+                                    bookmark
+                                 </span>
+                              )}
+                           </span>
                         </div>
                         <img
                            src={course1}

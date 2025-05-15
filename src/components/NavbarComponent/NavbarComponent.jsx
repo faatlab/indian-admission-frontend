@@ -5,11 +5,13 @@ import logo from "../../assets/main-logo.svg";
 import { Search } from "lucide-react";
 import { Dropdown } from "primereact/dropdown";
 import { AuthContext } from "../../context/AuthProvider";
+import { toast } from "sonner";
+import { Dialog } from "primereact/dialog";
 
 function NavbarComponent() {
    const [isOpen, setIsOpen] = useState(false);
    const navigate = useNavigate();
-   const { user } = useContext(AuthContext);
+   const { user, logout } = useContext(AuthContext);
 
    const toggleMenu = () => {
       setIsOpen(!isOpen);
@@ -57,13 +59,49 @@ function NavbarComponent() {
       }
    };
 
+   const handleLogout = () => {
+      navigate("/");
+      logout();
+      setVisible(false);
+      toast.success("Logged out successfully");
+   };
+
+   const [visible, setVisible] = useState(false);
+   const footerContent = (
+      <div>
+         <div className="p-5 flex justify-end gap-2 text-white text-sm">
+            <button
+               label="No"
+               icon="pi pi-times"
+               onClick={() => setVisible(false)}
+               className="text-gray-500 border  px-5 py-2 rounded-2xl cursor-pointer"
+            >
+               No
+            </button>
+            <button
+               label="No"
+               icon="pi pi-times"
+               onClick={handleLogout}
+               className="bg-green-500 px-5 py-2 rounded-2xl cursor-pointer"
+            >
+               Yes
+            </button>
+         </div>
+      </div>
+   );
+
    return (
       <div className="sticky top-0 z-50">
          <nav className="bg-white shadow-md">
             {/* Top section */}
             <div className="w-full h-22 flex justify-between items-center px-5 md:px-10">
                {/* Logo */}
-               <img className="w-[130px]" src={logo} alt="logo" onClick={()=>navigate("/")}/>
+               <img
+                  className="w-[130px]"
+                  src={logo}
+                  alt="logo"
+                  onClick={() => navigate("/")}
+               />
 
                {/* Desktop Login Button */}
                <div className="hidden md:flex items-center gap-3 ms-auto">
@@ -152,7 +190,7 @@ function NavbarComponent() {
                         </button>
                         <button
                            className="text-white bg-[#FF7043] hover:bg-orange-600 font-medium rounded-full text-sm px-8 py-3"
-                           onClick={() => console.log("Logout")}
+                           onClick={() => setVisible(true)}
                         >
                            Log Out
                         </button>
@@ -231,7 +269,7 @@ function NavbarComponent() {
                   {/* Mobile Log In */}
                   <button
                      type="button"
-                     className="flex justify-center items-center gap-2 w-full text-white bg-[#FF7043] hover:bg-orange-600 font-medium rounded-full text-sm px-8 py-3"
+                     className="flex justify-center items-center gap-2 w-full text-[#FF7043] border border-[#FF7043] hover:bg-orange-600 font-medium rounded-full text-sm px-8 py-3"
                   >
                      <svg
                         className="w-3 h-3"
@@ -250,34 +288,64 @@ function NavbarComponent() {
                      </svg>
                      Search
                   </button>
-                  <div className="flex justify-between gap-3">
-                     <button
-                        className="w-full text-slate bg-[#F2F2F2] hover:bg-[#ffad7d] font-medium rounded-full text-sm px-8 py-3 flex items-center justify-center"
-                        onClick={() => navigate("/saved-course")}
-                     >
-                        Applied Course
-                     </button>
-                     <button
-                        className="w-full text-slate bg-[#F2F2F2] hover:bg-[#ffad7d] font-medium rounded-full text-sm px-8 py-3 flex items-center justify-center"
-                        onClick={() => navigate("/saved-course")}
-                     >
-                        Profile
-                     </button>
-                  </div>
-                  <button
-                     className="w-full text-white bg-[#FF7043] hover:bg-orange-600 font-medium rounded-full text-sm px-8 py-3"
-                     onClick={() => {
-                        setIsOpen(false);
-                        navigate("/login");
-                     }}
-                  >
-                     Log In
-                  </button>
+                  {user ? (
+                     <>
+                        <div className="flex justify-between gap-3">
+                           <button
+                              className="w-full text-slate bg-[#F2F2F2] hover:bg-[#ffad7d] font-medium rounded-full text-sm px-8 py-3 flex items-center justify-center"
+                              onClick={() => navigate("/saved-course")}
+                           >
+                              Applied Course
+                           </button>
+                           <button
+                              className="w-full text-slate bg-[#F2F2F2] hover:bg-[#ffad7d] font-medium rounded-full text-sm px-8 py-3 flex items-center justify-center"
+                              onClick={() => navigate("/saved-course")}
+                           >
+                              Profile
+                           </button>
+                        </div>
+                        <button
+                           className="w-full text-white bg-[#FF7043] hover:bg-orange-600 font-medium rounded-full text-sm px-8 py-3"
+                           onClick={() => setVisible(true)}
+                        >
+                           Log Out
+                        </button>
+                     </>
+                  ) : (
+                     <>
+                        <button
+                           className="w-full text-white bg-[#FF7043] hover:bg-orange-600 font-medium rounded-full text-sm px-8 py-3"
+                           onClick={() => {
+                              setIsOpen(false);
+                              navigate("/login");
+                           }}
+                        >
+                           Log In
+                        </button>
+                     </>
+                  )}
                </div>
             </div>
          </nav>
+         <Dialog
+            header="Logout"
+            visible={visible}
+            position={top}
+            style={{ width: "35vw" }}
+            onHide={() => {
+               if (!visible) return;
+               setVisible(false);
+            }}
+            footer={footerContent}
+            draggable={false}
+            resizable={false}
+            className="m-5"
+            contentClassName="px-20"
+            headerClassName="p-5 text-red-400"
+         >
+            <p className="text-slate-600">Are you sure you want to Log out.</p>
+         </Dialog>
       </div>
-      
    );
 }
 
