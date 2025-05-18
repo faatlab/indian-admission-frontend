@@ -64,13 +64,13 @@ function LoginPage() {
    return (
       <div>
          <div
-            className="w-full h-dvh bg-cover overflow-hidden min-h-screen flex flex-col md:flex-row justify-evenly"
+            className="w-full lg:h-dvh bg-cover overflow-hidden min-h-screen flex flex-col md:flex-row justify-evenly"
             style={{
                backgroundImage: `url(${bgImage})`,
             }}
          >
             {/* Left side - hidden on mobile */}
-            <div className="md:flex lg:w-1/2 flex-col justify-center h-full text-white lg:ps-30 py-20 px-8">
+            <div className="md:flex lg:w-1/2 flex-col justify-center h-full text-white lg:ps-30 pt-8 md:py-20 px-8">
                <h1 className="text-3xl lg:text-5xl w-full font-bold mb-4 bg">
                   The future belongs to those who believe in the beauty of their dreams.
                </h1>

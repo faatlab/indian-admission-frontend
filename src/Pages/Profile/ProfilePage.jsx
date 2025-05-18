@@ -4,7 +4,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 import {
-   useFrappeDeleteCall,
    useFrappeDeleteDoc,
    useFrappeFileUpload,
    useFrappeGetDoc,
@@ -13,6 +12,8 @@ import {
 import { AuthContext } from "../../context/AuthProvider";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import user_temp from "../../assets/user_temp.webp";
+import { frappe_url } from "../../constants/globalConstants";
 
 function ProfilePage() {
    const { user } = useContext(AuthContext);
@@ -32,12 +33,12 @@ function ProfilePage() {
       id: false,
    });
 
-   const [isUploaded, setIsUploaded] = useState(false);
-   const [isHovering, setIsHovering] = useState(false);
    const [document_table, setDocument_table] = useState([]);
    const [formData, setFormData] = useState({});
    const [deleteDocName, setDeleteDocName] = useState({});
 
+   console.log(formData);
+   
    const tenthCertificateDoc = document_table.find(
       (doc) => doc.document_name === "tenth_school_certificate"
    );
@@ -51,15 +52,15 @@ function ProfilePage() {
       (doc) => doc.document_name === "community_certificate_doc"
    );
    const profilePicDoc = document_table.find(
-      (doc) => doc.document_name === "profile_pic"
+      (doc) => doc.document_name === "display_picture"
    );
    const identityDoc = document_table.find(
       (doc) => doc.document_name === "identity_doc"
    );
 
-   const getBorderClass = (docName) => {
+   const getBorderClass = (docName, hovering) => {
       if (docName) {
-         return isHovering ? "border-red-300" : "border-green-300";
+         return hovering ? "border-red-300" : "border-green-300";
       }
       return "border-dashed border-gray-300 hover:border-orange-500";
    };
@@ -89,11 +90,7 @@ function ProfilePage() {
          const file = e.target.files[0];
 
          try {
-            await upload(file, {
-               doctype: "Student", // attach to Student
-               docname: user, // e.g., "STUD-0001"
-               isPrivate: 1,
-            })
+            await upload(file, { isPrivate: false })
                .then((res) => {
                   const documentToUpload = {
                      document_name: e.target.name || file.name,
@@ -104,8 +101,10 @@ function ProfilePage() {
 
                   updateDoc("Student", user, {
                      document_table,
+                     display_picture: res.file_url,
                   })
                      .then(() => {
+                        mutate();
                         toast.success("Uploaded successfully");
                      })
                      .catch((err) => {
@@ -136,8 +135,11 @@ function ProfilePage() {
       try {
          deleteDoc("File", removingDocument)
             .then(() => {
-               updateDoc("Student", user, { document_table: updatedDocuments })
-                  .then((res) => {
+               updateDoc("Student", user, {
+                  document_table: updatedDocuments,
+                  display_picture: "",
+               })
+                  .then(() => {
                      mutate();
                      toast.success("Document has been removed");
                   })
@@ -155,6 +157,7 @@ function ProfilePage() {
             try {
                updateDoc("Student", user, formData)
                   .then(() => {
+                     mutate();
                      toast.success("Profile updated successfully");
                   })
                   .catch((err) => {
@@ -166,9 +169,9 @@ function ProfilePage() {
             } catch (error) {
                console.error(error);
             }
+         } else {
+            toast.error("Nothing to save");
          }
-      } else {
-         toast.error("Nothing to save");
       }
       setIsEditing(!isEditing);
    };
@@ -221,7 +224,7 @@ function ProfilePage() {
                   >
                      Saved Courses
                   </button>
-                  
+
                   <button
                      onClick={handleUpdate}
                      className="w-full md:w-auto text-white bg-[#FF7043] hover:bg-orange-600 focus:outline-none focus:ring-4 font-medium rounded-full text-sm  px-8 py-3 text-center cursor-pointer "
@@ -234,7 +237,11 @@ function ProfilePage() {
             {/* Profile Image & Info */}
             <div className="mt-8 flex items-center gap-4">
                <img
-                  src="https://randomuser.me/api/portraits/women/44.jpg"
+                  src={
+                     data?.display_picture != ""
+                        ? `${frappe_url}${data?.display_picture}`
+                        : user_temp
+                  }
                   alt="User"
                   className="w-16 h-16 rounded-full object-cover"
                />
@@ -272,9 +279,10 @@ function ProfilePage() {
                      disabled={!isEditing}
                      name="email"
                      value={formData?.email || ""}
+                     onChange={getFormData}
                      placeholder="Enter your email"
                      className="w-full bg-gray-100 rounded-lg px-4 py-2 text-sm outline-none disabled:opacity-70"
-                  />
+                     />
                </div>
 
                <div>
@@ -285,8 +293,9 @@ function ProfilePage() {
                      disabled={!isEditing}
                      name="gender"
                      value={formData?.gender || ""}
+                     onChange={getFormData}
                      className="w-full bg-gray-100 rounded-lg px-4 py-2 text-sm outline-none disabled:opacity-70"
-                  >
+                     >
                      <option hidden value="">
                         Select your gender
                      </option>
@@ -294,6 +303,21 @@ function ProfilePage() {
                      <option value={"Female"}>Female</option>
                      <option value={"Other"}>Other</option>
                   </select>
+               </div>
+
+               <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                     Phone Number
+                  </label>
+                  <input
+                     type="number"
+                     disabled={!isEditing}
+                     name="phone_number"
+                     value={formData?.phone_number || ""}
+                     onChange={getFormData}
+                     placeholder="Your Phone Number"
+                     className="w-full bg-gray-100 rounded-lg px-4 py-2 text-sm outline-none disabled:opacity-70"
+                     />
                </div>
 
                <div>
@@ -308,32 +332,20 @@ function ProfilePage() {
                      onChange={getFormData}
                      placeholder="Your First Name"
                      className="w-full bg-gray-100 rounded-lg px-4 py-2 text-sm outline-none disabled:opacity-70"
-                  />
+                     />
                </div>
 
                <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                     Phone Number
+                     Address
                   </label>
                   <input
                      type="text"
+                     name="address"
                      disabled={!isEditing}
-                     name="phone_number"
-                     value={formData?.phone_number || ""}
-                     placeholder="Your Phone Number"
-                     className="w-full bg-gray-100 rounded-lg px-4 py-2 text-sm outline-none disabled:opacity-70"
-                  />
-               </div>
-
-               <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                     Email
-                  </label>
-                  <input
-                     type="email"
-                     name="email"
-                     disabled={!isEditing}
-                     placeholder="Your First Name"
+                     value={formData?.address || ""}
+                     onChange={getFormData}
+                     placeholder="Your Address"
                      className="w-full bg-gray-100 rounded-lg px-4 py-2 text-sm outline-none disabled:opacity-70"
                   />
                </div>
@@ -347,7 +359,8 @@ function ProfilePage() {
                   <label
                      htmlFor="tenth_school_certificate"
                      className={`border-2 rounded-lg p-4 text-center cursor-pointer transition-colors duration-300 ${getBorderClass(
-                        tenthCertificateDoc
+                        tenthCertificateDoc,
+                        hovering.tenth
                      )}`}
                      onClick={() => {
                         if (tenthCertificateDoc && hovering.tenth) {
@@ -395,7 +408,8 @@ function ProfilePage() {
                   <label
                      htmlFor="twelfth_school_certificate"
                      className={`border-2 rounded-lg p-4 text-center cursor-pointer transition-colors duration-300 ${getBorderClass(
-                        twelfthCertificateDoc
+                        twelfthCertificateDoc,
+                        hovering.twelfth
                      )}`}
                      onClick={() => {
                         if (twelfthCertificateDoc && hovering.twelfth) {
@@ -443,7 +457,8 @@ function ProfilePage() {
                   <label
                      htmlFor="transfer_certificate_doc"
                      className={`border-2 rounded-lg p-4 text-center cursor-pointer transition-colors duration-300 ${getBorderClass(
-                        transferCetificateDoc
+                        transferCetificateDoc,
+                        hovering.transfer
                      )}`}
                      onClick={() => {
                         if (transferCetificateDoc && hovering.transfer) {
@@ -491,7 +506,8 @@ function ProfilePage() {
                   <label
                      htmlFor="community_certificate_doc"
                      className={`border-2 rounded-lg p-4 text-center cursor-pointer transition-colors duration-300 ${getBorderClass(
-                        communityCertificateDoc
+                        communityCertificateDoc,
+                        hovering.community
                      )}`}
                      onClick={() => {
                         if (communityCertificateDoc && hovering.community) {
@@ -537,14 +553,15 @@ function ProfilePage() {
 
                   {/* Photo File */}
                   <label
-                     htmlFor="profile_pic"
+                     htmlFor="display_picture"
                      className={`border-2 rounded-lg p-4 text-center cursor-pointer transition-colors duration-300 ${getBorderClass(
-                        profilePicDoc
+                        profilePicDoc,
+                        hovering.photo
                      )}`}
                      onClick={() => {
                         if (profilePicDoc && hovering.photo) {
                            setVisible(true);
-                           setDeleteDocName("profile_pic"); // delete file
+                           setDeleteDocName("display_picture"); // delete file
                         }
                      }}
                      onMouseEnter={() => handleMouseEnter("photo")}
@@ -573,8 +590,8 @@ function ProfilePage() {
                               </span>
                               <input
                                  type="file"
-                                 name="profile_pic"
-                                 id="profile_pic"
+                                 name="display_picture"
+                                 id="display_picture"
                                  onChange={handleUpload}
                                  style={{ display: "none" }}
                               />
@@ -587,7 +604,8 @@ function ProfilePage() {
                   <label
                      htmlFor="identity_doc"
                      className={`border-2 rounded-lg p-4 text-center cursor-pointer transition-colors duration-300 ${getBorderClass(
-                        identityDoc
+                        identityDoc,
+                        hovering.id
                      )}`}
                      onClick={() => {
                         if (identityDoc && hovering.id) {
@@ -636,27 +654,42 @@ function ProfilePage() {
 
          {/* modal for confirming document deletion */}
          <Dialog
-            header="Delete uploaded document"
+            showHeader={false}
             visible={visible}
             position={top}
-            style={{ width: "35vw" }}
             onHide={() => {
                if (!visible) return;
                setVisible(false);
             }}
-            footer={footerContent}
             draggable={false}
             resizable={false}
-            className="m-5"
-            contentClassName="px-20"
-            headerClassName="p-5 text-red-400"
+            className="m-5 w-full lg:w-1/3"
+            contentClassName="p-5 lg:p-10 rounded"
          >
-            <p className="text-slate-600">
+            <p className="text-slate-600 text-sm">
                Are you sure you want to delete this Document.{" "}
-               <span className="font-bold">
-                 Deleting this now cannot be reversed!
+               <span className="font-semibold">
+                  Deleting this now cannot be reversed!
                </span>
             </p>
+            <div className="mt-5 flex justify-end gap-2 text-white text-sm">
+               <button
+                  label="No"
+                  icon="pi pi-times"
+                  onClick={() => setVisible(false)}
+                  className="text-gray-500 border  px-5 py-2 rounded-2xl cursor-pointer"
+               >
+                  No
+               </button>
+               <button
+                  label="Delete"
+                  icon="pi pi-times"
+                  onClick={() => handleRemoveDoc(deleteDocName)}
+                  className="bg-red-500 px-5 py-2 rounded-2xl cursor-pointer"
+               >
+                  Delete
+               </button>
+            </div>
          </Dialog>
       </>
    );

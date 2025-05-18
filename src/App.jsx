@@ -25,6 +25,7 @@ import Privacy from "./Pages/Privacy/Privacy";
 import ScrollToTop from "./components/ScrollToTop";
 import NavbarComponent from "./components/NavbarComponent/NavbarComponent";
 import AppliedCourse from "./Pages/AppliedCourse/AppliedCourse";
+import CollegeList from "./Pages/CollegeList/CollegeList";
 
 function ProtectedRoute({ children }) {
    const { isAuthenticated, loading } = useContext(AuthContext);
@@ -68,23 +69,24 @@ function App() {
                />
                <Route path="/privacy-policy" element={<Privacy />} />
                <Route path="/faq" element={<Faq />} />
-               <Route path="/college-page" element={<CollegePage />} />
-               <Route path="/courses-page" element={<CourseList />} />
+               <Route path="/colleges" element={<CollegeList />} />
+               <Route path="/college/:id" element={<CollegePage />} />
+               <Route path="/courses" element={<CourseList />} />
                <Route path="/course/:id" element={<CoursePage />} />
                <Route
                   path="/profile"
                   element={
-                     <ProtectedRoute>
+                     // <ProtectedRoute>
                         <ProfilePage />
-                     </ProtectedRoute>
+                     // </ProtectedRoute>
                   }
                />
                <Route
                   path="/application-form/:id"
                   element={
-                    
+                     <ProtectedRoute>
                         <StudentForm />
-                    
+                     </ProtectedRoute>
                   }
                />
                <Route

@@ -63,13 +63,13 @@ function SignupPage() {
    return (
       <div>
          <div
-            className="w-full h-dvh bg-cover overflow-hidden min-h-screen flex flex-col md:flex-row justify-evenly"
+            className="w-full md:h-dvh bg-cover overflow-hidden min-h-screen flex flex-col md:flex-row justify-evenly"
             style={{
                backgroundImage: `url(${bgSignupImg})`,
             }}
          >
             {/* Left side - HIDDEN on mobile */}
-            <div className="md:flex lg:w-1/2 flex-col justify-center h-full text-white lg:ps-30 pt-20 px-8">
+            <div className="md:flex lg:w-1/2 flex-col justify-center h-full text-white lg:ps-30 pt-8 md:py-20 px-8">
                <h1 className="text-3xl lg:text-5xl font-bold mb-4">
                   Small steps in the right direction lead to big results.
                </h1>

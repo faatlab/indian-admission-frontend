@@ -5,8 +5,10 @@ import wave from '../../assets/wave.webp';
 import think from '../../assets/think.webp';
 import tc from '../../assets/tc.webp';
 import { FaXTwitter } from "react-icons/fa6";
+import { useNavigate } from 'react-router-dom';
 
 function FooterComponent() {
+  const navigate = useNavigate()
   return (
     <div>
       <footer className="bg-white text-center py-12 px-4 border-t border-gray-200">
@@ -23,20 +25,20 @@ function FooterComponent() {
 
           {/* Buttons */}
           <div className="mt-6 flex justify-center gap-4 flex-wrap">
-            <button className="bg-gray-100 text-gray-900 px-5 py-2 rounded-full text-sm flex items-center gap-2 hover:bg-gray-200 transition ">
+            <button onClick={()=>navigate("/faq")} className="bg-gray-100 text-gray-900 px-5 py-2 rounded-full text-sm flex items-center gap-2 hover:bg-gray-200 transition ">
               <div className="w-5">
                 <img src={think} alt="" />
               </div>{' '}
-              Faq
+              FAQ
             </button>
-            <button className="bg-gray-100 text-gray-900 px-5 py-2 rounded-full text-sm flex items-center gap-2 hover:bg-gray-200 transition">
+            <button onClick={()=>navigate("/terms-and-conditions")} className="bg-gray-100 text-gray-900 px-5 py-2 rounded-full text-sm flex items-center gap-2 hover:bg-gray-200 transition">
               <div className="w-5">
                 <img src={tc} alt="" />
               </div>{' '}
               T&C
             </button>
            
-              <button className="bg-gray-100 text-gray-900 px-5 py-2 rounded-full text-sm flex items-center gap-2 hover:bg-gray-200 transition">
+              <button onClick={()=>navigate("/contact-us")} className="bg-gray-100 text-gray-900 px-5 py-2 rounded-full text-sm flex items-center gap-2 hover:bg-gray-200 transition">
               <div className="w-5">
                 <img src={wave} alt="" />
               </div>{' '}

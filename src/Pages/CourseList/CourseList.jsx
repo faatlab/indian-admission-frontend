@@ -25,6 +25,8 @@ function CourseList() {
    const search_query = searchParams.get("search_query") || "";
    const selected_state = searchParams.get("selected_state") || "";
 
+   console.log(search_query, selected_state);
+
    const getAllCourses = async () => {
       try {
          const response = await axios.get(`${api_url}/courses/india`, {
@@ -134,11 +136,12 @@ function CourseList() {
          {/* Card 1 */}
          {courses.length > 1 ? (
             <>
-               <div className=" flex flex-row items-center gap-6 justify-center flex-wrap mt-3 mb-20">
+               <div className=" flex flex-row items-center gap-6 justify-center flex-wrap mt-3 mx-2 mb-20 ">
                   {courses.map((course) => (
                      <div
+                        data-aos="fade-up"
                         key={course.course_id}
-                        className="flex w-full max-w-sm lg:max-w-md rounded-xl overflow-hidden shadow-md bg-white gap-2"
+                        className="flex w-full  max-w-sm lg:max-w-md rounded-xl overflow-hidden shadow-md bg-white gap-2"
                      >
                         <div
                            className="flex flex-col justify-between p-4 flex-1"
@@ -154,9 +157,9 @@ function CourseList() {
                            <h4 className="text-sm text-gray-600">
                               {course.college_name}
                            </h4>
-                           <div className="flex items-center space-x-1 opacity-50 text-xs">
+                           <p className="flex items-center space-x-1 opacity-50 text-xs">
                               {course.course_in_state}
-                           </div>
+                           </p>
                         </div>
                         <div className="flex items-end">
                            <span

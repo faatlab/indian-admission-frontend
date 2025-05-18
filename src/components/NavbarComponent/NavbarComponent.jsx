@@ -52,10 +52,16 @@ function NavbarComponent() {
    ];
 
    const handleSearch = () => {
-      if (search) {
-         navigate("/courses-page", {
-            state: { searchTerm: search, selectedState: state },
-         });
+      if (search && state) {
+         navigate(
+            `/courses?search_query=${encodeURIComponent(
+               search
+            )}&selected_state=${encodeURIComponent(state.name)}`
+         );
+         setSearch("");
+         setState("");
+      } else {
+         toast("Please select a state and enter a search term.");
       }
    };
 
@@ -67,28 +73,6 @@ function NavbarComponent() {
    };
 
    const [visible, setVisible] = useState(false);
-   const footerContent = (
-      <div>
-         <div className="p-5 flex justify-end gap-2 text-white text-sm">
-            <button
-               label="No"
-               icon="pi pi-times"
-               onClick={() => setVisible(false)}
-               className="text-gray-500 border  px-5 py-2 rounded-2xl cursor-pointer"
-            >
-               No
-            </button>
-            <button
-               label="No"
-               icon="pi pi-times"
-               onClick={handleLogout}
-               className="bg-green-500 px-5 py-2 rounded-2xl cursor-pointer"
-            >
-               Yes
-            </button>
-         </div>
-      </div>
-   );
 
    return (
       <div className="sticky top-0 z-50">
@@ -100,7 +84,10 @@ function NavbarComponent() {
                   className="w-[130px]"
                   src={logo}
                   alt="logo"
-                  onClick={() => navigate("/")}
+                  onClick={() => {
+                     navigate("/");
+                     setIsOpen(false);
+                  }}
                />
 
                {/* Desktop Login Button */}
@@ -178,7 +165,7 @@ function NavbarComponent() {
                      <>
                         <button
                            className="text-slate bg-[#F2F2F2] hover:bg-[#ffad7d] font-medium rounded-full text-sm px-8 py-3"
-                           onClick={() => navigate("/saved-course")}
+                           onClick={() => navigate("/applied-course")}
                         >
                            Applied courses
                         </button>
@@ -221,7 +208,7 @@ function NavbarComponent() {
                <div className="px-5 py-4 space-y-4">
                   {/* Mobile SearchBar */}
                   <div className="">
-                     <form className="w-full h-12" onSubmit={handleSearch}>
+                     <form className="w-full h-12">
                         <label
                            htmlFor="default-search"
                            className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
@@ -233,6 +220,7 @@ function NavbarComponent() {
                               type="search"
                               id="default-search"
                               name="search"
+                              value={search}
                               onChange={(e) => setSearch(e.target.value)}
                               className="block w-full h-full ps-4 pe-44 text-sm text-gray-900 border border-gray-300 rounded-[30px] bg-gray-50 outline-0 "
                               placeholder="Search for a Courses"
@@ -269,6 +257,10 @@ function NavbarComponent() {
                   {/* Mobile Log In */}
                   <button
                      type="button"
+                     onClick={() => {
+                        handleSearch();
+                        setIsOpen(false);
+                     }}
                      className="flex justify-center items-center gap-2 w-full text-[#FF7043] border border-[#FF7043] hover:bg-orange-600 font-medium rounded-full text-sm px-8 py-3"
                   >
                      <svg
@@ -293,20 +285,29 @@ function NavbarComponent() {
                         <div className="flex justify-between gap-3">
                            <button
                               className="w-full text-slate bg-[#F2F2F2] hover:bg-[#ffad7d] font-medium rounded-full text-sm px-8 py-3 flex items-center justify-center"
-                              onClick={() => navigate("/saved-course")}
+                              onClick={() => {
+                                 navigate("/applied-course");
+                                 setIsOpen(!isOpen);
+                              }}
                            >
                               Applied Course
                            </button>
                            <button
                               className="w-full text-slate bg-[#F2F2F2] hover:bg-[#ffad7d] font-medium rounded-full text-sm px-8 py-3 flex items-center justify-center"
-                              onClick={() => navigate("/saved-course")}
+                              onClick={() => {
+                                 navigate("/profile");
+                                 setIsOpen(!isOpen);
+                              }}
                            >
                               Profile
                            </button>
                         </div>
                         <button
                            className="w-full text-white bg-[#FF7043] hover:bg-orange-600 font-medium rounded-full text-sm px-8 py-3"
-                           onClick={() => setVisible(true)}
+                           onClick={() => {
+                              setVisible(true);
+                              setIsOpen(!isOpen);
+                           }}
                         >
                            Log Out
                         </button>
@@ -328,22 +329,39 @@ function NavbarComponent() {
             </div>
          </nav>
          <Dialog
-            header="Logout"
+            showHeader={false}
             visible={visible}
             position={top}
-            style={{ width: "35vw" }}
             onHide={() => {
                if (!visible) return;
                setVisible(false);
             }}
-            footer={footerContent}
             draggable={false}
             resizable={false}
-            className="m-5"
-            contentClassName="px-20"
-            headerClassName="p-5 text-red-400"
+            className="m-5 w-full md:w-1/3 rounded "
+            contentClassName="p-5 rounded lg:p-10"
          >
-            <p className="text-slate-600">Are you sure you want to Log out.</p>
+            <p className="text-slate-600 text-sm md:text-base">
+               Are you sure you want to Log out?
+            </p>
+            <div className="mt-5 flex justify-end gap-2 text-white text-sm">
+               <button
+                  label="No"
+                  icon="pi pi-times"
+                  onClick={() => setVisible(false)}
+                  className="text-gray-500 border  px-5 py-2 rounded-2xl cursor-pointer"
+               >
+                  No
+               </button>
+               <button
+                  label="No"
+                  icon="pi pi-times"
+                  onClick={handleLogout}
+                  className="bg-red-500 px-5 py-2 rounded-2xl cursor-pointer"
+               >
+                  Logout
+               </button>
+            </div>
          </Dialog>
       </div>
    );
