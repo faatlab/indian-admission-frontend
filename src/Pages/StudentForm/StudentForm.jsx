@@ -178,22 +178,21 @@ function StudentForm() {
 
          try {
             await upload(file, {
-               doctype: "Student", // attach to Student
-               docname: user, // e.g., "STUD-0001"
-               isPrivate: 1,
+               isPrivate: 0,
             })
                .then((res) => {
                   const fileUrl = res?.file_url;
 
                   const documentToUpload = {
                      document_name: e.target.name || file.name,
-                     document_file: fileUrl,
+                     document_file: res.name,
                   };
 
                   document_table.push(documentToUpload);
 
                   updateDoc("Student", user, {
                      document_table,
+                     display_picture: fileUrl,
                   })
                      .then(() => {
                         toast.success("Uploaded successfully");
