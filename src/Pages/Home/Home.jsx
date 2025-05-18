@@ -419,7 +419,7 @@ function Home() {
                   className="flex flex-wrap justify-center gap-12"
                >
                   {/* Card 1 */}
-                  {majorColleges.map((majorCollege) => (
+                  {majorColleges?.map((majorCollege) => (
                      <div
                         key={majorCollege.col_id}
                         onClick={() => navigate(`/college/${majorCollege.col_name}/?college_id=${majorCollege.col_id}`)}
@@ -551,7 +551,7 @@ function Home() {
                {/* card  */}
                <div className="flex flex-row items-center gap-6 justify-center flex-wrap mt-3 mx-2 mb-20">
                   {/* Card 1 */}
-                  {trendingCourses.map((trendingCourse) => (
+                  {trendingCourses?.map((trendingCourse) => (
                      <div
                         key={trendingCourse.course_id}
                         onClick={() =>

@@ -176,6 +176,9 @@ function ProfilePage() {
       setIsEditing(!isEditing);
    };
 
+   console.log(data.display_picture);
+   
+
    useEffect(() => {
       if (data) {
          setFormData(data);
@@ -184,28 +187,6 @@ function ProfilePage() {
    }, [data, isloading]);
 
    const [visible, setVisible] = useState(false);
-   const footerContent = (
-      <div>
-         <div className="p-5 flex justify-end gap-2 text-white text-sm">
-            <button
-               label="No"
-               icon="pi pi-times"
-               onClick={() => setVisible(false)}
-               className="text-gray-500 border  px-5 py-2 rounded-2xl cursor-pointer"
-            >
-               No
-            </button>
-            <button
-               label="No"
-               icon="pi pi-times"
-               onClick={() => handleRemoveDoc(deleteDocName)}
-               className="bg-green-500 px-5 py-2 rounded-2xl cursor-pointer"
-            >
-               Yes
-            </button>
-         </div>
-      </div>
-   );
 
    return (
       <>
@@ -238,18 +219,18 @@ function ProfilePage() {
             <div className="mt-8 flex items-center gap-4">
                <img
                   src={
-                     data?.display_picture != ""
+                     data?.display_picture != undefined
                         ? `${frappe_url}${data?.display_picture}`
                         : user_temp
                   }
                   alt="User"
-                  className="w-16 h-16 rounded-full object-cover"
+                  className="w-14 h-14 lg:w-16 lg:h-16 rounded-full object-cover"
                />
                <div>
                   <h2 className="text-lg font-semibold text-gray-800">
                      {data?.full_name || "User"}
                   </h2>
-                  <p className="text-sm text-gray-500">{data?.email}</p>
+                  <p className="text-xs text-gray-500">{data?.email}</p>
                </div>
             </div>
 
