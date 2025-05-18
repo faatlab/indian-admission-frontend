@@ -174,10 +174,7 @@ function ProfilePage() {
          }
       }
       setIsEditing(!isEditing);
-   };
-
-   console.log(data.display_picture);
-   
+   };   
 
    useEffect(() => {
       if (data) {
