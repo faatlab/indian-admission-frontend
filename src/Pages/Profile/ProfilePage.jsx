@@ -36,8 +36,6 @@ function ProfilePage() {
    const [document_table, setDocument_table] = useState([]);
    const [formData, setFormData] = useState({});
    const [deleteDocName, setDeleteDocName] = useState({});
-
-   console.log(formData);
    
    const tenthCertificateDoc = document_table.find(
       (doc) => doc.document_name === "tenth_school_certificate"
@@ -216,7 +214,7 @@ function ProfilePage() {
             <div className="mt-8 flex items-center gap-4">
                <img
                   src={
-                     data?.display_picture != undefined
+                     data?.display_picture
                         ? `${frappe_url}${data?.display_picture}`
                         : user_temp
                   }

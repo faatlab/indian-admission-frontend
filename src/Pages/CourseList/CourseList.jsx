@@ -25,8 +25,6 @@ function CourseList() {
    const search_query = searchParams.get("search_query") || "";
    const selected_state = searchParams.get("selected_state") || "";
 
-   console.log(search_query, selected_state);
-
    const getAllCourses = async () => {
       try {
          const response = await axios.get(`${api_url}/courses/india`, {

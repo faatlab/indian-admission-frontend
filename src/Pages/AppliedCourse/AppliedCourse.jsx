@@ -25,8 +25,6 @@ function AppliedCourse() {
                },
             });
 
-            console.log(response);
-
             if (response.status == 200) {
                setCourses(response.data.data);
             } else {
